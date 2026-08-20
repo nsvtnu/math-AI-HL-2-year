@@ -39,7 +39,7 @@ const CAL = [
   { d: '2026-11-11', dow: 'Wed', unit: '3.6', what: 'Graph theory' },
   { d: '2026-11-17', dow: 'Tue', unit: '3.6', what: 'Graph theory' },
   { d: '2026-11-19', dow: 'Thu', unit: '3.6', what: 'Graph theory' },
-  { d: '2026-11-23', dow: 'Mon', unit: '', what: 'Fall break 🍂' },
+  { d: '2026-11-23', dow: 'Mon', unit: '', what: 'Fall break' },
   { d: '2026-11-30', dow: 'Mon', unit: '', what: 'Summative 5', assess: true },
   { d: '2026-12-02', dow: 'Wed', unit: '3.7', what: 'Confidence intervals, t-test, z-test' },
   { d: '2026-12-04', dow: 'Fri', unit: '3.7', what: 'Chi-square test for independence / goodness of fit' },
@@ -48,7 +48,7 @@ const CAL = [
   { d: '2026-12-14', dow: 'Mon', unit: '3.7', what: 'Review' },
   { d: '2026-12-16', dow: 'Wed', unit: '3.7', what: 'Review' },
   { d: '2026-12-18', dow: 'Fri', unit: '', what: 'Summative 6', assess: true },
-  { d: '2026-12-21', dow: 'Mon', unit: '', what: 'Winter break ❄️' },
+  { d: '2026-12-21', dow: 'Mon', unit: '', what: 'Winter break' },
   { d: '2027-01-06', dow: 'Wed', unit: '', what: 'Log-log plots' },
   { d: '2027-01-08', dow: 'Fri', unit: '', what: 'Review' },
   { d: '2027-01-12', dow: 'Tue', unit: '', what: 'Review' },
@@ -72,7 +72,7 @@ const ASSESS = [
 // ============================================================
 const UNITS = [
 {
-id: 'u31', code: '3.1', emoji: '🌀', title: 'Complex Numbers & Sinusoids',
+id: 'u31', code: '3.1', title: 'Complex Numbers & Sinusoids',
 sub: 'Argand geometry, polar form, and why adding sine waves is secretly complex-number addition.',
 syll: 'AI HL 1.12, 1.13 · 2.5 · 3.8',
 notes: [
@@ -86,7 +86,7 @@ notes: [
 <li><b>Phase shift</b> $c$ — slides the whole wave right by $c$ (because the bracket reads $t - c$).</li>
 </ul>
 <p>Cosine is just a shifted sine: $\cos t = \sin(t + \frac{\pi}{2})$. Use whichever starts in the right place: sine starts at the midline going up, cosine starts at a maximum.</p>
-<div class="warn">⚠️ Trap: in $\sin(2t - 3)$ the phase shift is NOT 3. Factor first: $\sin(2(t - 1.5))$, so the shift is 1.5. The IB writes both forms deliberately.</div>` },
+<div class="warn"><b>Trap:</b> in $\sin(2t - 3)$ the phase shift is NOT 3. Factor first: $\sin(2(t - 1.5))$, so the shift is 1.5. The IB writes both forms deliberately.</div>` },
 
 { h: 'Fitting a sinusoid to data', body: L`
 <p>Real questions hand you a max, a min, and timing information, and ask for the model. The workflow is always the same four steps — extract the dials in this order:</p>
@@ -104,7 +104,7 @@ notes: [
 <li>At $t = 0$ we are at the MINIMUM, which is what an upside-down cosine does: use $-\cos$.</li>
 <li>$h(t) = 16 - 14\cos(\frac{\pi}{2}t)$. Check: $h(0) = 2$ ✓, $h(2) = 30$ ✓.</li>
 </ol></div>
-<div class="tip">💡 Choosing $-\cos$ (start at min), $\cos$ (start at max) or $\pm\sin$ (start at midline) kills the phase-shift algebra entirely. Only reach for $c$ when the start point is somewhere awkward.</div>` },
+<div class="tip"><b>Tip:</b> Choosing $-\cos$ (start at min), $\cos$ (start at max) or $\pm\sin$ (start at midline) kills the phase-shift algebra entirely. Only reach for $c$ when the start point is somewhere awkward.</div>` },
 
 { h: 'Complex numbers: Cartesian arithmetic', body: L`
 <p>Define $i$ by $i^2 = -1$. A complex number $z = x + iy$ has a <b>real part</b> $x$ and an <b>imaginary part</b> $y$ (a real number — the part multiplied by $i$). Arithmetic works exactly like algebra with the extra rule $i^2 = -1$:</p>
@@ -134,7 +134,7 @@ notes: [
 <li>Naive angle: $\arctan\frac{1}{-1} = -\frac{\pi}{4}$ — but the point $(-1, 1)$ is in the SECOND quadrant, so that is wrong.</li>
 <li>Sketch it: the arrow points up-left, $\frac{\pi}{4}$ above the negative real axis, so $\arg z = \pi - \frac{\pi}{4} = \frac{3\pi}{4}$.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: $\arctan\frac{y}{x}$ only lands in the right quadrant when $x &gt; 0$. ALWAYS sketch the point before writing down an argument — quadrants 2 and 3 need a correction by $\pm\pi$.</div>` },
+<div class="warn"><b>Trap:</b> $\arctan\frac{y}{x}$ only lands in the right quadrant when $x &gt; 0$. ALWAYS sketch the point before writing down an argument — quadrants 2 and 3 need a correction by $\pm\pi$.</div>` },
 
 { h: 'Polar & Euler form: multiplication is rotation', body: L`
 <p>Once you know $r = |z|$ and $\theta = \arg z$, you can rebuild the number. Three equivalent costumes:</p>
@@ -166,7 +166,7 @@ notes: [
 ],
 },
 {
-id: 'u32', code: '3.2', emoji: '⚡', title: 'Differentiation & Antidifferentiation',
+id: 'u32', code: '3.2', title: 'Differentiation & Antidifferentiation',
 sub: 'The full HL derivative toolkit, then running it in reverse.',
 syll: 'AI HL 5.9 · 5.11',
 notes: [
@@ -180,7 +180,7 @@ notes: [
 <li><b>As a function:</b> $f'$ is a new function, the "gradient machine" — feed it any $x$, get the slope there.</li>
 </ul>
 <p>Notation is interchangeable: $f'(x)$, $y'$, $\frac{dy}{dx}$, $\frac{d}{dx}f(x)$ all mean the same thing. The $\frac{dy}{dx}$ form earns its keep in related rates and DEs, where "small change in $y$ per small change in $x$" is the useful reading.</p>
-<div class="tip">💡 Sign reading: $f' &gt; 0$ ⇒ increasing, $f' &lt; 0$ ⇒ decreasing, $f' = 0$ ⇒ stationary. Half of unit 3.3 is just this sentence applied repeatedly.</div>` },
+<div class="tip"><b>Tip:</b> Sign reading: $f' &gt; 0$ ⇒ increasing, $f' &lt; 0$ ⇒ decreasing, $f' = 0$ ⇒ stationary. Half of unit 3.3 is just this sentence applied repeatedly.</div>` },
 
 { h: 'Power rule — and the art of rewriting first', body: L`
 <div class="fbox">$\frac{d}{dx}x^n = nx^{n-1}$ for ANY real $n$ — including negative and fractional</div>
@@ -197,12 +197,12 @@ notes: [
 <li>Power rule per term: $y' = \frac{3}{2}x^{-1/2} + 4x^{-3}$.</li>
 <li>Tidy back: $y' = \frac{3}{2\sqrt{x}} + \frac{4}{x^3}$.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: differentiating $\frac{4}{x^2}$ as "$\frac{4}{2x}$" (differentiating top and bottom separately) is the classic L. Rewrite as $4x^{-2}$ first, every time.</div>` },
+<div class="warn"><b>Trap:</b> differentiating $\frac{4}{x^2}$ as "$\frac{4}{2x}$" (differentiating top and bottom separately) is the classic L. Rewrite as $4x^{-2}$ first, every time.</div>` },
 
 { h: 'The transcendental table (radians only!)', body: L`
 <div class="fbox">$\frac{d}{dx}\sin x = \cos x$ · $\frac{d}{dx}\cos x = -\sin x$ · $\frac{d}{dx}\tan x = \frac{1}{\cos^2 x}$ · $\frac{d}{dx}e^x = e^x$ · $\frac{d}{dx}\ln x = \frac{1}{x}$</div>
 <p>These five + the power rule + the three combination rules below = every derivative in the course. Memorise the sign pattern: sine's derivative is plain cosine; it is COSINE that picks up the minus. And $e^x$ is the celebrity: the only function that is its own derivative — the slope at every point equals the height. That is the reason $e$ shows up in every growth model.</p>
-<div class="warn">⚠️ Trap: the trig derivatives are ONLY true in radians. Degree mode makes an unwanted factor $\frac{\pi}{180}$ appear and silently wrecks every calculus answer. Check the GDC mode before every paper — this is a free mark you can lose in second one.</div>` },
+<div class="warn"><b>Trap:</b> the trig derivatives are ONLY true in radians. Degree mode makes an unwanted factor $\frac{\pi}{180}$ appear and silently wrecks every calculus answer. Check the GDC mode before every paper — this is a free mark you can lose in second one.</div>` },
 
 { h: 'Chain rule — the inside-outside game', body: L`
 <p>For a composite function ("function of a function"), differentiate the <b>outside</b> (leaving the inside untouched), then multiply by the derivative of the <b>inside</b>:</p>
@@ -215,7 +215,7 @@ notes: [
 <li>$\sin(3x)$: → $\cos(3x) \times 3 = 3\cos 3x$.</li>
 </ol></div>
 <p>Layered composites just chain further: $\frac{d}{dx}\sin^2(3x)$ is outside "square", middle "sin", inside "3x": $2\sin(3x) \cdot \cos(3x) \cdot 3$.</p>
-<div class="warn">⚠️ Trap: forgetting the inside derivative (the ×2, ×5, ×6x above) is the single most common lost mark in HL calculus. If the inside is anything other than plain $x$, a factor is owed.</div>` },
+<div class="warn"><b>Trap:</b> forgetting the inside derivative (the ×2, ×5, ×6x above) is the single most common lost mark in HL calculus. If the inside is anything other than plain $x$, a factor is owed.</div>` },
 
 { h: 'Product & quotient rules', body: L`
 <p>For a product you cannot expand (like $x^2 e^x$) or a genuine quotient:</p>
@@ -226,8 +226,8 @@ notes: [
 <div class="wex"><div class="wex-t">Worked example — quotient</div>
 <p>$y = \frac{\sin x}{x}$: $y' = \frac{\cos x \cdot x - \sin x \cdot 1}{x^2} = \frac{x\cos x - \sin x}{x^2}$.</p>
 </div>
-<div class="warn">⚠️ Trap: the quotient rule's numerator is a SUBTRACTION and order matters — "low d-high minus high d-low", all over low squared. Writing the terms backwards flips the sign of the whole answer.</div>
-<div class="tip">💡 Before using the quotient rule, ask if you even need it: $\frac{x^3 + 2x}{x}$ simplifies, $\frac{5}{x^2}$ is a power. The quotient rule is for quotients that refuse to simplify.</div>` },
+<div class="warn"><b>Trap:</b> the quotient rule's numerator is a SUBTRACTION and order matters — "low d-high minus high d-low", all over low squared. Writing the terms backwards flips the sign of the whole answer.</div>
+<div class="tip"><b>Tip:</b> Before using the quotient rule, ask if you even need it: $\frac{x^3 + 2x}{x}$ simplifies, $\frac{5}{x^2}$ is a power. The quotient rule is for quotients that refuse to simplify.</div>` },
 
 { h: 'Antidifferentiation — the table in reverse', body: L`
 <p>An <b>antiderivative</b> of $f$ is any function whose derivative is $f$. The indefinite integral collects all of them (hence the $+c$). Power rule backwards — raise the power, divide by the new power:</p>
@@ -237,7 +237,7 @@ notes: [
 <div class="wex"><div class="wex-t">Worked example</div>
 <p>$\int \left(6x^2 - \frac{4}{x} + \sin 2x\right) dx = 2x^3 - 4\ln|x| - \frac{\cos 2x}{2} + c$ — term by term, one $+c$ for the lot.</p>
 </div>
-<div class="warn">⚠️ Trap: "divide by the inside's coefficient" ONLY works when the inside is linear. $\int e^{x^2} dx$ is NOT $\frac{e^{x^2}}{2x}$ — that expression is not even an antiderivative (differentiate it and see the mess). Non-linear insides are beyond the course's toolkit.</div>` },
+<div class="warn"><b>Trap:</b> "divide by the inside's coefficient" ONLY works when the inside is linear. $\int e^{x^2} dx$ is NOT $\frac{e^{x^2}}{2x}$ — that expression is not even an antiderivative (differentiate it and see the mess). Non-linear insides are beyond the course's toolkit.</div>` },
 
 { h: 'The +c and boundary conditions', body: L`
 <p>Infinitely many curves share the same gradient function — they are vertical shifts of each other. The $+c$ is the whole family; a <b>boundary condition</b> (one known point) picks out the family member you want.</p>
@@ -252,7 +252,7 @@ notes: [
 ],
 },
 {
-id: 'u33', code: '3.3', emoji: '⛰️', title: 'Applications of Differentiation',
+id: 'u33', code: '3.3', title: 'Applications of Differentiation',
 sub: 'Tangents, normals, max/min tests, optimisation and related rates.',
 syll: 'AI HL 5.4 · 5.6 · 5.7 · 5.9 · 5.10',
 notes: [
@@ -270,8 +270,8 @@ notes: [
 <li>Gradient: $y' = 2x - 3$, so $m = 1$.</li>
 <li>Tangent: $y + 2 = 1(x - 2)$, i.e. $y = x - 4$. Normal: slope $-1$, $y = -x$.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: plugging $a$ into $f'$ to get the $y$-coordinate. The POINT comes from $f$; only the SLOPE comes from $f'$. Mixing these up is the most common lost mark on this topic.</div>
-<div class="tip">💡 "The tangent at P is horizontal" translates to $f'(a) = 0$. "The tangent is parallel to $y = 5x$" translates to $f'(a) = 5$. Most disguised questions are one of these translations.</div>` },
+<div class="warn"><b>Trap:</b> plugging $a$ into $f'$ to get the $y$-coordinate. The POINT comes from $f$; only the SLOPE comes from $f'$. Mixing these up is the most common lost mark on this topic.</div>
+<div class="tip"><b>Tip:</b> "The tangent at P is horizontal" translates to $f'(a) = 0$. "The tangent is parallel to $y = 5x$" translates to $f'(a) = 5$. Most disguised questions are one of these translations.</div>` },
 
 { h: 'Stationary points & the first-derivative test', body: L`
 <p>Where $f'(a) = 0$ the curve is momentarily flat — a <b>stationary point</b>. To classify it, look at the SIGN of $f'$ on each side (a sign table is the cleanest layout):</p>
@@ -291,7 +291,7 @@ notes: [
 <p>That gives the quick classification at a stationary point:</p>
 <div class="fbox">$f'(a) = 0$ and $f''(a) &lt; 0$: local max · $f''(a) &gt; 0$: local min · $f''(a) = 0$: NO verdict — fall back to the sign table</div>
 <p>An <b>inflection point</b> is where concavity flips: $f'' = 0$ <em>and</em> $f''$ changes sign there. The "and" is load-bearing: $y = x^4$ has $f''(0) = 0$ at what is actually a minimum — no sign change, no inflection.</p>
-<div class="tip">💡 Curve-sketch questions love the chain: $f$ tells height, $f'$ tells direction, $f''$ tells bend. Given a graph of $f'$, you read stationary points of $f$ where $f'$ crosses zero, and inflections of $f$ where $f'$ has its own max/min.</div>` },
+<div class="tip"><b>Tip:</b> Curve-sketch questions love the chain: $f$ tells height, $f'$ tells direction, $f''$ tells bend. Given a graph of $f'$, you read stationary points of $f$ where $f'$ crosses zero, and inflections of $f$ where $f'$ has its own max/min.</div>` },
 
 { h: 'Optimisation — the six-step recipe', body: L`
 <p>"Find the largest/cheapest/fastest…" = find where a derivative is zero, with a story attached. The recipe:</p>
@@ -312,7 +312,7 @@ notes: [
 <li>$A'' = -4 &lt; 0$, so it is a maximum. ✓</li>
 <li>$y = 20$, and $A = 10 \times 20 = 200$ m² — the answer is 200 m², not "$x = 10$".</li>
 </ol></div>
-<div class="warn">⚠️ Trap: in modelling contexts the best value can sit on the DOMAIN BOUNDARY where $f' \ne 0$ (e.g. "x is at most 8"). After finding stationary points, compare with endpoint values before declaring a winner.</div>` },
+<div class="warn"><b>Trap:</b> in modelling contexts the best value can sit on the DOMAIN BOUNDARY where $f' \ne 0$ (e.g. "x is at most 8"). After finding stationary points, compare with endpoint values before declaring a winner.</div>` },
 
 { h: 'Related rates — differentiate the relationship', body: L`
 <p>Two quantities are linked by a formula and both change with time. Differentiate the <em>relationship itself</em> with respect to $t$ (chain rule makes every variable sprout a $\frac{d}{dt}$), THEN substitute the snapshot numbers:</p>
@@ -324,8 +324,8 @@ notes: [
 <li>Substitute the snapshot LAST: $20 = 4\pi \cdot 25 \cdot \frac{dr}{dt}$.</li>
 <li>$\frac{dr}{dt} = \frac{20}{100\pi} = \frac{1}{5\pi} \approx 0.064$ cm/s.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: substituting $r = 5$ BEFORE differentiating freezes the radius and kills the rate (derivative of a constant = 0). Numbers go in last — this is the single rule of related rates.</div>
-<div class="tip">💡 Translation table: "inflated at 20 cm³/s" = $\frac{dV}{dt} = 20$; "draining" = negative rate; "how fast is X changing" = find $\frac{dX}{dt}$. Write the rates down before touching any algebra.</div>` },
+<div class="warn"><b>Trap:</b> substituting $r = 5$ BEFORE differentiating freezes the radius and kills the rate (derivative of a constant = 0). Numbers go in last — this is the single rule of related rates.</div>
+<div class="tip"><b>Tip:</b> Translation table: "inflated at 20 cm³/s" = $\frac{dV}{dt} = 20$; "draining" = negative rate; "how fast is X changing" = find $\frac{dX}{dt}$. Write the rates down before touching any algebra.</div>` },
 
 { h: 'Piecewise functions: continuity & smoothness', body: L`
 <p>At a join $x = a$ between two pieces:</p>
@@ -341,7 +341,7 @@ notes: [
 ],
 },
 {
-id: 'u34', code: '3.4', emoji: '📏', title: 'Integration: Areas & Solids',
+id: 'u34', code: '3.4', title: 'Integration: Areas & Solids',
 sub: 'Definite integrals, area between curves, the trapezoidal rule, and volumes of revolution.',
 syll: 'AI HL 5.5 · 5.8 · 5.11 · 5.12',
 notes: [
@@ -357,7 +357,7 @@ notes: [
 <div class="wex"><div class="wex-t">Worked example</div>
 <p>$\int_1^3 (3x^2 - 2x)\,dx = \left[x^3 - x^2\right]$ from 1 to 3 $= (27 - 9) - (1 - 1) = 18$.</p>
 </div>
-<div class="tip">💡 On the GDC you can evaluate any definite integral numerically — use it to CHECK hand work, and to answer "unintegratable" modelling questions directly. Paper 1 wants the algebra; papers with tech want the number.</div>` },
+<div class="tip"><b>Tip:</b> On the GDC you can evaluate any definite integral numerically — use it to CHECK hand work, and to answer "unintegratable" modelling questions directly. Paper 1 wants the algebra; papers with tech want the number.</div>` },
 
 { h: 'Signed area vs geometric area', body: L`
 <p>Integrals count area <b>below the axis as negative</b>. So $\int_0^{2\pi} \sin x\,dx = 0$ — the two lobes cancel. If a question wants the GEOMETRIC area (paint, fabric, land):</p>
@@ -385,7 +385,7 @@ notes: [
 <li>Between them the line is on top (test $x = 0$: line gives 2, parabola 0).</li>
 <li>$A = \int_{-1}^{2}(x + 2 - x^2)dx = \left[\frac{x^2}{2} + 2x - \frac{x^3}{3}\right]_{-1}^{2} = \frac{10}{3} - (-\frac{7}{6}) = \frac{9}{2}$.</li>
 </ol></div>
-<div class="tip">💡 Sketch first, always — the GDC draws both curves in seconds, shows who is on top, and its intersect function hands you the limits. Most dropped marks here are limits or top/bottom guessed without a picture.</div>` },
+<div class="tip"><b>Tip:</b> Sketch first, always — the GDC draws both curves in seconds, shows who is on top, and its intersect function hands you the limits. Most dropped marks here are limits or top/bottom guessed without a picture.</div>` },
 
 { h: 'Trapezoidal rule — integrating from data', body: L`
 <p>When you only have sampled values (or an unintegratable function), chop $[a,b]$ into $n$ equal strips and pretend each strip's top is a straight chord:</p>
@@ -408,12 +408,12 @@ notes: [
 <li>Square the WHOLE expression: $y^2 = 4x$.</li>
 <li>$V = \pi\int_0^4 4x\,dx = \pi\left[2x^2\right]_0^4 = 32\pi$.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: $(2\sqrt{x})^2 = 4x$, not $2x$ — the coefficient gets squared too. Squaring is where most volume marks die.</div>
-<div class="tip">💡 Sanity-check against geometry: $y = 2$ on $[0, 3]$ spun about the $x$-axis is a cylinder, and the formula gives $\pi\int_0^3 4\,dx = 12\pi$ ✓. If your integrand does not reduce to something sane on a simple case, the setup is wrong.</div>` },
+<div class="warn"><b>Trap:</b> $(2\sqrt{x})^2 = 4x$, not $2x$ — the coefficient gets squared too. Squaring is where most volume marks die.</div>
+<div class="tip"><b>Tip:</b> Sanity-check against geometry: $y = 2$ on $[0, 3]$ spun about the $x$-axis is a cylinder, and the formula gives $\pi\int_0^3 4\,dx = 12\pi$ ✓. If your integrand does not reduce to something sane on a simple case, the setup is wrong.</div>` },
 ],
 },
 {
-id: 'u35', code: '3.5', emoji: '🧬', title: 'Differential Equations',
+id: 'u35', code: '3.5', title: 'Differential Equations',
 sub: 'Separation of variables, slope fields, Euler, and coupled systems — the HL boss level.',
 syll: 'AI HL 5.14 – 5.17 (+5.18 via systems)',
 notes: [
@@ -425,7 +425,7 @@ notes: [
 <li>Differentiate the candidate: $\frac{dy}{dx} = 15e^{3x}$.</li>
 <li>Compute the right side: $3y = 15e^{3x}$. Equal ⇒ it is a solution. ✓</li>
 </ol></div>
-<div class="tip">💡 Verification questions are free marks: differentiate, substitute, compare. No solving technique needed. If a "show that" DE question appears, this is all it wants.</div>` },
+<div class="tip"><b>Tip:</b> Verification questions are free marks: differentiate, substitute, compare. No solving technique needed. If a "show that" DE question appears, this is all it wants.</div>` },
 
 { h: 'Writing DEs from sentences', body: L`
 <p>Modelling questions hand you a sentence; you write the DE. The dictionary:</p>
@@ -454,7 +454,7 @@ notes: [
 <li>At $(0, 2)$: $2 = 0 + c$ → $c = 2$.</li>
 <li>$y^2 = x^2 + 4$, so $y = \sqrt{x^2 + 4}$ (positive root — it must pass through $y = 2 &gt; 0$).</li>
 </ol></div>
-<div class="warn">⚠️ Trap: $e^{kx + c}$ is NOT "$e^{kx} + c$" — the constant multiplies after exponentiating. Writing $y = Ae^{kx}$ where $A$ absorbed $e^c$ is the clean move.</div>` },
+<div class="warn"><b>Trap:</b> $e^{kx + c}$ is NOT "$e^{kx} + c$" — the constant multiplies after exponentiating. Writing $y = Ae^{kx}$ where $A$ absorbed $e^c$ is the clean move.</div>` },
 
 { h: 'Slope fields — the flow map', body: L`
 <p>A DE $\frac{dy}{dx} = f(x, y)$ assigns a gradient to EVERY point of the plane. Drawing a small dash with that gradient at each grid point gives the <b>slope field</b>; solution curves "surf" the dashes. Different initial conditions pick different curves, and solution curves never cross.</p>
@@ -464,7 +464,7 @@ notes: [
 <li><b>Matching a field to its DE:</b> interrogate special places — where is the slope 0? Where is it independent of $x$ (dashes identical along horizontal lines ⇒ DE has no $x$)? Positive vs negative regions?</li>
 <li><b>Isoclines:</b> the set of points where the slope equals a constant $m$ is the curve $f(x,y) = m$ — useful for sketching fields by hand.</li>
 </ul>
-<div class="tip">💡 Exam MCQ strategy: compute the slope at one or two easy points (like the origin, or a point where $x = 0$) and eliminate fields that disagree. Two points usually kill three options.</div>` },
+<div class="tip"><b>Tip:</b> Exam MCQ strategy: compute the slope at one or two easy points (like the origin, or a point where $x = 0$) and eliminate fields that disagree. Two points usually kill three options.</div>` },
 
 { h: "Euler's method — pretend it's straight", body: L`
 <p>When a DE will not separate, walk numerically: pretend the curve is straight for a tiny step $h$, then re-aim.</p>
@@ -478,7 +478,7 @@ notes: [
 <li>So $y(0.3) \approx 1.36$. Lay it out as a table of $x_n$, $y_n$, slope — markschemes are structured around exactly that table.</li>
 </ol></div>
 <p>Accuracy: halving $h$ roughly halves the error (but doubles the work — this is what the GDC spreadsheet is for). Euler UNDERestimates when the true curve is concave up (each straight step sags below the curve), and overestimates when concave down.</p>
-<div class="warn">⚠️ Trap: the slope is always evaluated at the CURRENT point $(x_n, y_n)$ — both coordinates. Using the new $x$ with the old $y$, or forgetting to update $x$ at all, silently derails the whole table.</div>` },
+<div class="warn"><b>Trap:</b> the slope is always evaluated at the CURRENT point $(x_n, y_n)$ — both coordinates. Using the new $x$ with the old $y$, or forgetting to update $x$ at all, silently derails the whole table.</div>` },
 
 { h: 'Coupled systems & phase portraits', body: L`
 <p>Two interacting quantities (predator–prey, competing species, love affairs if you believe the textbooks) give a <b>coupled system</b>:</p>
@@ -491,11 +491,11 @@ notes: [
 <p>$M$ = <span class="mx"><span>1</span><span>4</span><span>1</span><span>1</span></span>: trace $= 2$, det $= 1 - 4 = -3$. Eigenvalues solve $\lambda^2 - 2\lambda - 3 = 0$ → $\lambda = 3, -1$. Opposite signs ⇒ SADDLE: trajectories approach along the $\lambda = -1$ eigenvector direction, then get flung out along the $\lambda = 3$ direction.</p>
 </div>
 <p><b>Euler for systems</b> is the same one-step logic run on both variables at once, always from CURRENT values: $x_{n+1} = x_n + h(ax_n + by_n)$, $y_{n+1} = y_n + h(cx_n + dy_n)$.</p>
-<div class="warn">⚠️ Trap: updating $x$ first and then using the NEW $x$ to update $y$ inside the same step. Both updates use the old pair $(x_n, y_n)$ — compute both slopes before moving anything.</div>` },
+<div class="warn"><b>Trap:</b> updating $x$ first and then using the NEW $x$ to update $y$ inside the same step. Both updates use the old pair $(x_n, y_n)$ — compute both slopes before moving anything.</div>` },
 ],
 },
 {
-id: 'u36', code: '3.6', emoji: '🕸️', title: 'Graph Theory',
+id: 'u36', code: '3.6', title: 'Graph Theory',
 sub: 'Networks, adjacency matrices, Eulerian trails, spanning trees, Chinese postman & TSP.',
 syll: 'AI HL 3.14 – 3.16',
 notes: [
@@ -510,7 +510,7 @@ notes: [
 <li><b>Tree</b> — connected with no cycles; always exactly $n - 1$ edges. <b>Spanning tree</b> — a tree inside a graph touching every vertex.</li>
 <li><b>Subgraph</b> — a graph formed from some of the vertices and edges of another.</li>
 </ul>
-<div class="tip">💡 Trail vs path (edges vs vertices) is a favourite one-mark ambush. Trail = mail-trail: you may revisit a corner but never re-walk a street.</div>` },
+<div class="tip"><b>Tip:</b> Trail vs path (edges vs vertices) is a favourite one-mark ambush. Trail = mail-trail: you may revisit a corner but never re-walk a street.</div>` },
 
 { h: 'The handshake lemma', body: L`
 <p>Every edge has two ends, so summing degrees counts each edge twice:</p>
@@ -532,7 +532,7 @@ notes: [
 <li>Walks 1→1 of length 2: via 2 or via 3, so 2. That is $(A^2)_{11} = 2$ — equal to $\deg(1)$, as any out-and-back works.</li>
 <li>Walks 1→2 of length 2: only 1→3→2, so 1. ✓ Matches $(A^2)_{12} = 1$.</li>
 </ol></div>
-<div class="tip">💡 On the GDC, store $A$ once and raise it to powers — questions asking for "number of routes using exactly 4 flights" are just $(A^4)_{ij}$ read straight off the screen. The diagonal of $A^2$ lists the degrees (undirected, simple).</div>` },
+<div class="tip"><b>Tip:</b> On the GDC, store $A$ once and raise it to powers — questions asking for "number of routes using exactly 4 flights" are just $(A^4)_{ij}$ read straight off the screen. The diagonal of $A^2$ lists the degrees (undirected, simple).</div>` },
 
 { h: 'Eulerian trails & circuits', body: L`
 <p>Eulerian = about EDGES (walk every edge exactly once). The complete theory fits in one box:</p>
@@ -558,7 +558,7 @@ notes: [
 <li>Take AB(1) ✓, CD(2) ✓, AC(3) ✓ — now all four vertices connected with 3 = $n-1$ edges.</li>
 <li>BC(4) would close cycle A-B-C — reject. Done: MST = AB + CD + AC, total weight 6.</li>
 </ol></div>
-<div class="tip">💡 Method marks come from showing the ORDER you considered/added edges and noting any rejection with the cycle it would close. A bare final tree scores worse than a documented greedy run.</div>` },
+<div class="tip"><b>Tip:</b> Method marks come from showing the ORDER you considered/added edges and noting any rejection with the cycle it would close. A bare final tree scores worse than a documented greedy run.</div>` },
 
 { h: 'Chinese postman (route inspection)', body: L`
 <p>Walk EVERY EDGE at least once and return to the start, minimising total distance. If every degree is even, the graph is Eulerian and the answer is simply the total weight. Odd-degree vertices are the obstruction — each pair of them forces some edges to be walked twice:</p>
@@ -574,7 +574,7 @@ notes: [
 <li>Pairings: (AB)+(CD) $= 9$; (AC)+(BD) $= 6$; (AD)+(BC) $= 13$.</li>
 <li>Cheapest is 6 → postman route $= 60 + 6 = 66$, repeating the edges along the A–C and B–D shortest paths.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: pair distances are SHORTEST PATHS through the graph, not necessarily direct edges — check for cheaper multi-edge routes before summing pairings.</div>` },
+<div class="warn"><b>Trap:</b> pair distances are SHORTEST PATHS through the graph, not necessarily direct edges — check for cheaper multi-edge routes before summing pairings.</div>` },
 
 { h: 'Travelling salesman: bounds', body: L`
 <p>Visit every VERTEX and return — minimising weight. Exact answers are computationally brutal, so the IB asks you to TRAP the optimum between bounds:</p>
@@ -586,11 +586,11 @@ notes: [
 <li>Delete D: MST of A, B, C weighs 11; two cheapest edges at D are 4 and 5 → optimum ≥ 20.</li>
 <li>Conclusion to write: $20 \le \text{optimal} \le 23$. Different deleted vertices give different lower bounds — the BEST lower bound is the largest one.</li>
 </ol></div>
-<div class="tip">💡 In a table (matrix) question, nearest-neighbour is just "scan the row for the smallest unused entry". Cross out visited columns as you go — the bookkeeping is the marks.</div>` },
+<div class="tip"><b>Tip:</b> In a table (matrix) question, nearest-neighbour is just "scan the row for the smallest unused entry". Cross out visited columns as you go — the bookkeeping is the marks.</div>` },
 ],
 },
 {
-id: 'u37', code: '3.7', emoji: '🧪', title: 'Inference & Hypothesis Testing',
+id: 'u37', code: '3.7', title: 'Inference & Hypothesis Testing',
 sub: 'Confidence intervals, z/t/chi-square/Poisson/correlation tests, and Type I/II errors.',
 syll: 'AI HL 4.11 · 4.16 · 4.18',
 notes: [
@@ -624,7 +624,7 @@ notes: [
 <li>GDC: TInterval → $(39.76, 42.64)$ (3 s.f.).</li>
 <li>Interpretation sentence: "We are 95% confident the interval from 39.8 to 42.6 hours contains the true mean battery life."</li>
 </ol></div>
-<div class="warn">⚠️ Trap: the wording "there is a 95% probability that $\mu$ is in THIS interval" loses the mark — $\mu$ is fixed, the INTERVAL is what varies. Confidence lives in the method, not in one interval.</div>` },
+<div class="warn"><b>Trap:</b> the wording "there is a 95% probability that $\mu$ is in THIS interval" loses the mark — $\mu$ is fixed, the INTERVAL is what varies. Confidence lives in the method, not in one interval.</div>` },
 
 { h: 'Hypothesis tests — the choreography', body: L`
 <p>Every test is the same five-step dance; only the GDC menu item changes.</p>
@@ -643,7 +643,7 @@ notes: [
 <li>GDC t-test → p $\approx 0.0125$.</li>
 <li>$0.0125 &lt; 0.05$ → reject $H_0$: significant evidence at the 5% level that the mean fill is below 500 g.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: never write "accept $H_0$" — a big p-value means INSUFFICIENT EVIDENCE against it, not proof of it. The wording mark is real and examiners collect it every session.</div>` },
+<div class="warn"><b>Trap:</b> never write "accept $H_0$" — a big p-value means INSUFFICIENT EVIDENCE against it, not proof of it. The wording mark is real and examiners collect it every session.</div>` },
 
 { h: 'The test menu — picking the right one', body: L`
 <p>Read the question, identify the parameter, pick from the menu:</p>
@@ -654,7 +654,7 @@ notes: [
 <li><b>Correlation</b> ("is there a linear association?") → test $H_0: \rho = 0$ using the t-statistic for $r$ — output straight from the GDC's LinRegTTest.</li>
 <li><b>Category counts</b> → chi-square (next section).</li>
 </ul>
-<div class="tip">💡 One-tailed or two? "Changed / different" ⇒ two-tailed. "Increased / decreased / more / less" ⇒ one-tailed. Halving or doubling a p-value by picking the wrong tails is a classic self-inflicted wound.</div>` },
+<div class="tip"><b>Tip:</b> One-tailed or two? "Changed / different" ⇒ two-tailed. "Increased / decreased / more / less" ⇒ one-tailed. Halving or doubling a p-value by picking the wrong tails is a classic self-inflicted wound.</div>` },
 
 { h: 'Chi-square tests: GOF & independence', body: L`
 <p>Chi-square compares OBSERVED counts with EXPECTED counts.</p>
@@ -666,19 +666,19 @@ notes: [
 <li>df $= (2-1)(2-1) = 1$. GDC chi-square test → p-value; compare with $\alpha$; conclude in context ("evidence of an association between year and pet preference" or not).</li>
 </ol></div>
 <p>$H_0$ is always "independent / follows the claimed distribution"; $H_1$ "not". Conditions: expected counts should all be ≥ 5 — if not, COMBINE adjacent categories and recompute df.</p>
-<div class="warn">⚠️ Trap: df uses the number of CATEGORIES, not the sample size. And GOF expected counts come from the claimed model times $n$ — forgetting to scale proportions up to counts breaks everything downstream.</div>` },
+<div class="warn"><b>Trap:</b> df uses the number of CATEGORIES, not the sample size. And GOF expected counts come from the claimed model times $n$ — forgetting to scale proportions up to counts breaks everything downstream.</div>` },
 
 { h: 'Type I & Type II errors', body: L`
-<div class="fbox">Type I: rejecting $H_0$ when it is TRUE — false alarm 🚨, probability $= \alpha$ · Type II: failing to reject $H_0$ when it is FALSE — missed detection 😴, probability $= \beta$</div>
+<div class="fbox">Type I: rejecting $H_0$ when it is TRUE — false alarm, probability $= \alpha$ · Type II: failing to reject $H_0$ when it is FALSE — missed detection, probability $= \beta$</div>
 <div class="wex"><div class="wex-t">Worked example — in context</div>
 <p>Drug test with $H_0$: "drug has no effect". Type I = concluding the drug works when it does not (false hope, wasted money). Type II = concluding nothing when the drug actually works (a real treatment shelved). Writing both IN CONTEXT like this is exactly what the question wants.</p>
 </div>
 <p>The trade-off: shrinking $\alpha$ (a stricter test) makes false alarms rarer but missed detections MORE likely — you cannot minimise both for free. The escape hatch is a bigger sample: more data shrinks $\beta$ at fixed $\alpha$. (The quantity $1 - \beta$ is called the power of the test.)</p>
-<div class="tip">💡 Which error is worse depends on the story — a fire alarm tolerates Type I (annoying) to avoid Type II (catastrophic); criminal courts do the reverse. Expect a "which error is more serious here and why" part.</div>` },
+<div class="tip"><b>Tip:</b> Which error is worse depends on the story — a fire alarm tolerates Type I (annoying) to avoid Type II (catastrophic); criminal courts do the reverse. Expect a "which error is more serious here and why" part.</div>` },
 ],
 },
 {
-id: 'u38', code: 'Jan', emoji: '📈', title: 'Log-Log Plots & Linearisation',
+id: 'u38', code: 'Jan', title: 'Log-Log Plots & Linearisation',
 sub: 'Turning curves into straight lines to identify models — the January special.',
 syll: 'AI HL 2.10',
 notes: [
@@ -705,7 +705,7 @@ notes: [
 <li>Slope: $\log b = 0.12$, so $b = 10^{0.12} \approx 1.32$.</li>
 <li>Model: $y = 2.0 \times 1.32^x$ — i.e. 32% growth per unit of $x$.</li>
 </ol></div>
-<div class="tip">💡 Sanity checks: on log-log, doubling behaviour depends on the POWER; on semi-log, equal $x$-steps multiply $y$ by equal factors. And $R^2$ closeness between two candidate linearisations is a legitimate tiebreaker — quote it. Base $e$ works identically with $\ln$ throughout (then $b = e^{\text{slope}}$).</div>` },
+<div class="tip"><b>Tip:</b> Sanity checks: on log-log, doubling behaviour depends on the POWER; on semi-log, equal $x$-steps multiply $y$ by equal factors. And $R^2$ closeness between two candidate linearisations is a legitimate tiebreaker — quote it. Base $e$ works identically with $\ln$ throughout (then $b = e^{\text{slope}}$).</div>` },
 ],
 },
 ];
@@ -715,7 +715,7 @@ notes: [
 // ============================================================
 const GAPS = [
 {
-id: 'g1', emoji: '🧮', title: 'Matrices & Eigenvalues', syll: 'AI HL 1.14 · 1.15',
+id: 'g1', title: 'Matrices & Eigenvalues', syll: 'AI HL 1.14 · 1.15',
 why: 'Not on the calendar, but unit 3.5 (coupled DEs) and Markov chains quietly depend on it.',
 sub: 'Operations, determinants, inverses, eigenvalues & eigenvectors.',
 notes: [
@@ -730,7 +730,7 @@ notes: [
 <li>Result: <span class="mx"><span>19</span><span>22</span><span>43</span><span>50</span></span>.</li>
 </ol></div>
 <p>Order MATTERS: $AB \ne BA$ in general (often the shapes do not even allow both). The identity $I$ (1's on the diagonal) acts like the number 1: $AI = IA = A$.</p>
-<div class="tip">💡 The GDC multiplies, inverts and powers matrices natively — learn the matrix editor keystrokes now; units 3.5, 3.6 and Markov chains all lean on it.</div>` },
+<div class="tip"><b>Tip:</b> The GDC multiplies, inverts and powers matrices natively — learn the matrix editor keystrokes now; units 3.5, 3.6 and Markov chains all lean on it.</div>` },
 
 { h: 'Determinant & inverse (2×2)', body: L`
 <p>For $M$ = <span class="mx"><span>a</span><span>b</span><span>c</span><span>d</span></span>:</p>
@@ -764,7 +764,7 @@ notes: [
 <li>Characteristic equation: $\lambda^2 - 7\lambda + 10 = 0$ → $(\lambda - 5)(\lambda - 2) = 0$.</li>
 <li>$\lambda = 5$ and $\lambda = 2$. Check: sum $= 7 =$ trace ✓, product $= 10 = \det$ ✓.</li>
 </ol></div>
-<div class="tip">💡 The trace/det checks catch sign slips instantly — use them every single time. Complex eigenvalues (negative discriminant) are fine and meaningful: they signal ROTATION, which is exactly what makes spirals in unit 3.5.</div>` },
+<div class="tip"><b>Tip:</b> The trace/det checks catch sign slips instantly — use them every single time. Complex eigenvalues (negative discriminant) are fine and meaningful: they signal ROTATION, which is exactly what makes spirals in unit 3.5.</div>` },
 
 { h: 'Eigenvectors — and why any of this matters', body: L`
 <p>For each $\lambda$, solve $(M - \lambda I)\mathbf{v} = \mathbf{0}$. The two equations will be multiples of each other (that is the point — det is zero), so one equation determines the DIRECTION and any scalar multiple works.</p>
@@ -779,7 +779,7 @@ notes: [
 ],
 },
 {
-id: 'g2', emoji: '🔄', title: 'Matrix Transformations', syll: 'AI HL 3.9',
+id: 'g2', title: 'Matrix Transformations', syll: 'AI HL 3.9',
 why: 'Geometric transformations as 2×2 matrices — absent from the calendar.',
 sub: 'Rotations, reflections, stretches, and determinant = area factor.',
 notes: [
@@ -803,7 +803,7 @@ notes: [
 <li>$\theta = 90°$: matrix columns $(0, 1)$ and $(-1, 0)$.</li>
 <li>Image $= (0 \times 2 - 1 \times 1,\ 1 \times 2 + 0 \times 1) = (-1, 2)$. Sketch to confirm the quarter-turn ✓.</li>
 </ol></div>
-<div class="tip">💡 Do not memorise blindly — REBUILD from the columns rule: where do $(1,0)$ and $(0,1)$ land? Ten seconds of sketching regenerates the whole catalogue under exam pressure.</div>` },
+<div class="tip"><b>Tip:</b> Do not memorise blindly — REBUILD from the columns rule: where do $(1,0)$ and $(0,1)$ land? Ten seconds of sketching regenerates the whole catalogue under exam pressure.</div>` },
 
 { h: 'Composition — order matters', body: L`
 <div class="fbox">Applying $A$ first, then $B$, is the single matrix $BA$ — the FIRST transformation sits NEAREST the vector: $B(A\mathbf{x}) = (BA)\mathbf{x}$</div>
@@ -825,7 +825,7 @@ notes: [
 ],
 },
 {
-id: 'g3', emoji: '➡️', title: 'Vectors', syll: 'AI HL 3.10 – 3.13',
+id: 'g3', title: 'Vectors', syll: 'AI HL 3.10 – 3.13',
 why: 'A whole AHL block (dot/cross products, vector lines, vector kinematics) with zero calendar slots.',
 sub: 'Components, products, lines, and motion.',
 notes: [
@@ -861,7 +861,7 @@ notes: [
 <li>Check with a dot product: $(-6, -1, 3)\cdot(1, 0, 2) = -6 + 0 + 6 = 0$ ✓ perpendicular.</li>
 <li>Triangle area on $\mathbf{a}, \mathbf{b}$: $\frac{1}{2}\sqrt{36 + 1 + 9} = \frac{1}{2}\sqrt{46}$.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: $\mathbf{a}\times\mathbf{b} = -(\mathbf{b}\times\mathbf{a})$ — order flips the sign. And the middle component is the one everyone botches; the GDC computes cross products, so verify there when allowed.</div>` },
+<div class="warn"><b>Trap:</b> $\mathbf{a}\times\mathbf{b} = -(\mathbf{b}\times\mathbf{a})$ — order flips the sign. And the middle component is the one everyone botches; the GDC computes cross products, so verify there when allowed.</div>` },
 
 { h: 'Vector equation of a line', body: L`
 <div class="fbox">$\mathbf{r} = \mathbf{a} + t\mathbf{b}$ — a point on the line, plus $t$ copies of the direction. $t$ is the dial: each value names a point</div>
@@ -883,11 +883,11 @@ notes: [
 <li>$|\mathbf{d}|^2 = (10-2t)^2 + (5-2t)^2 = 8t^2 - 60t + 125$ — minimise the SQUARE (same minimiser, no square roots).</li>
 <li>Vertex at $t = \frac{60}{16} = 3.75$; $|\mathbf{d}|^2 = 12.5$, so min distance $= \sqrt{12.5} \approx 3.54$.</li>
 </ol></div>
-<div class="tip">💡 "When are they closest" and "do they collide" are different questions: collision needs SAME position at the SAME $t$. Also, distance-from-origin questions: minimise $|\mathbf{r}(t)|^2$ the same way.</div>` },
+<div class="tip"><b>Tip:</b> "When are they closest" and "do they collide" are different questions: collision needs SAME position at the SAME $t$. Also, distance-from-origin questions: minimise $|\mathbf{r}(t)|^2$ the same way.</div>` },
 ],
 },
 {
-id: 'g4', emoji: '🔗', title: 'Markov Chains', syll: 'AI HL 4.19',
+id: 'g4', title: 'Markov Chains', syll: 'AI HL 4.19',
 why: 'Transition matrices + steady states are examinable and not scheduled this semester.',
 sub: 'Transition matrices, powers, and steady states.',
 notes: [
@@ -900,7 +900,7 @@ notes: [
 <li>From rainy (column 2): turns sunny 0.4, stays rainy 0.6.</li>
 <li>$T$ = <span class="mx"><span>0.8</span><span>0.4</span><span>0.2</span><span>0.6</span></span>. Columns sum to 1 ✓.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: some textbooks put the probabilities in ROWS instead (rows sum to 1, and you multiply on the other side). Either works — but mixing conventions mid-question produces nonsense. State yours and stick to it.</div>` },
+<div class="warn"><b>Trap:</b> some textbooks put the probabilities in ROWS instead (rows sum to 1, and you multiply on the other side). Either works — but mixing conventions mid-question produces nonsense. State yours and stick to it.</div>` },
 
 { h: 'Stepping forward with matrix powers', body: L`
 <p>If $\mathbf{s}_n$ is the probability distribution over states after $n$ steps (a column vector summing to 1):</p>
@@ -911,7 +911,7 @@ notes: [
 <li>$\mathbf{s}_0$ = <span class="mx mxv"><span>1</span><span>0</span></span>. Compute $T^2$ on the GDC: <span class="mx"><span>0.72</span><span>0.56</span><span>0.28</span><span>0.44</span></span>.</li>
 <li>Answer = row "rainy", column "sunny" of $T^2$: $0.28$.</li>
 </ol></div>
-<div class="tip">💡 Sanity check every power: columns must STILL sum to 1. If they do not, the matrix went in transposed.</div>` },
+<div class="tip"><b>Tip:</b> Sanity check every power: columns must STILL sum to 1. If they do not, the matrix went in transposed.</div>` },
 
 { h: 'The steady state', body: L`
 <p>Run the chain long enough and the distribution settles to a $\mathbf{s}$ with $T\mathbf{s} = \mathbf{s}$ — an <b>eigenvector for $\lambda = 1$</b>, normalised so its entries sum to 1 (every transition matrix has $\lambda = 1$; that is why steady states exist).</p>
@@ -926,7 +926,7 @@ notes: [
 ],
 },
 {
-id: 'g5', emoji: '📊', title: 'Estimators, Combinations & CLT', syll: 'AI HL 4.14 · 4.15',
+id: 'g5', title: 'Estimators, Combinations & CLT', syll: 'AI HL 4.14 · 4.15',
 why: 'The theory the 3.7 inference unit stands on — worth learning BEFORE December.',
 sub: 'Linear transformations of random variables, unbiased estimates, central limit theorem.',
 notes: [
@@ -956,7 +956,7 @@ notes: [
 <div class="wex"><div class="wex-t">Worked example</div>
 <p>Data: 2, 4, 6. $\bar{x} = 4$; squared deviations $4 + 0 + 4 = 8$; unbiased variance $= \frac{8}{2} = 4$ (the biased version would say $\frac{8}{3} \approx 2.7$).</p>
 </div>
-<div class="tip">💡 In inference (unit 3.7) you ALWAYS feed the $s_{n-1}$ flavour into t-machinery. When a question says "estimate the population variance from this sample", it wants $n - 1$.</div>` },
+<div class="tip"><b>Tip:</b> In inference (unit 3.7) you ALWAYS feed the $s_{n-1}$ flavour into t-machinery. When a question says "estimate the population variance from this sample", it wants $n - 1$.</div>` },
 
 { h: 'The Central Limit Theorem', body: L`
 <div class="fbox">For a random sample of size $n$ from ANY distribution with mean $\mu$, sd $\sigma$: $\ \bar{X} \approx N\left(\mu, \frac{\sigma^2}{n}\right)$ for large $n$ (rule of thumb $n \ge 30$)</div>
@@ -967,11 +967,11 @@ notes: [
 <li>CLT: $\bar{X} \approx N(38, \frac{400}{100})$, sd $= 2$.</li>
 <li>$P(\bar{X} &gt; 42) = P(Z &gt; 2) \approx 0.0228$. No normality of receipts needed — $n = 100$ does the heavy lifting.</li>
 </ol></div>
-<div class="warn">⚠️ Trap: the CLT is about the SAMPLE MEAN's distribution, not individuals. P(one receipt &gt; 42) is a different (and unanswerable-without-the-distribution) question.</div>` },
+<div class="warn"><b>Trap:</b> the CLT is about the SAMPLE MEAN's distribution, not individuals. P(one receipt &gt; 42) is a different (and unanswerable-without-the-distribution) question.</div>` },
 ],
 },
 {
-id: 'g6', emoji: '📞', title: 'Poisson Distribution', syll: 'AI HL 4.17',
+id: 'g6', title: 'Poisson Distribution', syll: 'AI HL 4.17',
 why: 'The 3.7 unit tests a Poisson MEAN — the distribution itself never gets a lesson.',
 sub: 'Counting rare events: model, formula, properties.',
 notes: [
@@ -984,7 +984,7 @@ notes: [
 <li>$P(X = 5) = \frac{e^{-3}3^5}{5!} = \frac{243e^{-3}}{120} \approx 0.101$.</li>
 <li>$P(X \le 2)$: GDC poissoncdf(3, 2) $\approx 0.423$. (Pdf = exactly; cdf = at most — the eternal menu choice.)</li>
 </ol></div>
-<div class="warn">⚠️ Trap: "P(X &lt; 3)" means $P(X \le 2)$ for a discrete variable. Off-by-one on the cdf boundary is the most common Poisson error in existence.</div>` },
+<div class="warn"><b>Trap:</b> "P(X &lt; 3)" means $P(X \le 2)$ for a discrete variable. Off-by-one on the cdf boundary is the most common Poisson error in existence.</div>` },
 
 { h: 'The fingerprint: mean = variance', body: L`
 <p>Mean equal to variance is the Poisson signature, and questions use it two ways:</p>
@@ -1004,11 +1004,11 @@ notes: [
 <li>Combined rate 7/hour → half an hour: $m = 3.5$.</li>
 <li>$P(X &gt; 3) = 1 - P(X \le 3) = 1 - \text{poissoncdf}(3.5, 3) \approx 0.463$.</li>
 </ol></div>
-<div class="tip">💡 Poisson vs binomial: binomial has a FIXED NUMBER of trials each succeeding or failing; Poisson counts events in continuous time/space with no natural "number of attempts". "Out of 20 seeds, how many germinate" = binomial; "how many meteors per hour" = Poisson.</div>` },
+<div class="tip"><b>Tip:</b> Poisson vs binomial: binomial has a FIXED NUMBER of trials each succeeding or failing; Poisson counts events in continuous time/space with no natural "number of attempts". "Out of 20 seeds, how many germinate" = binomial; "how many meteors per hour" = Poisson.</div>` },
 ],
 },
 {
-id: 'g7', emoji: '🎢', title: 'Second-Order DEs', syll: 'AI HL 5.18',
+id: 'g7', title: 'Second-Order DEs', syll: 'AI HL 5.18',
 why: 'The calendar covers systems — confirm the second-order → coupled conversion gets taught.',
 sub: 'Reducing d²x/dt² equations to coupled first-order systems.',
 notes: [
@@ -1040,7 +1040,7 @@ notes: [
 ],
 },
 {
-id: 'g8', emoji: '🦠', title: 'Logistic & Further Models', syll: 'AI HL 2.9 · 2.10',
+id: 'g8', title: 'Logistic & Further Models', syll: 'AI HL 2.9 · 2.10',
 why: 'HL modelling menu (logistic, log models, piecewise) not visible on the calendar.',
 sub: 'Growth with a ceiling, and the rest of the HL model menu.',
 notes: [
@@ -1065,11 +1065,11 @@ notes: [
 <li><b>Periodic</b> → sinusoidal. <b>Ceiling / S-shape</b> → logistic. <b>Slowing growth, no ceiling</b> → $a + b\ln x$ (log model, only for $x &gt; 0$).</li>
 <li><b>Different regimes</b> (e.g. rates that change at a threshold) → piecewise; check continuity at the joins.</li>
 </ul>
-<div class="tip">💡 Two-model questions ("compare an exponential and a logistic fit") want BEHAVIOUR arguments: what does each predict long-run, and which is physically plausible? A population cannot grow unboundedly — that sentence is a mark.</div>` },
+<div class="tip"><b>Tip:</b> Two-model questions ("compare an exponential and a logistic fit") want BEHAVIOUR arguments: what does each predict long-run, and which is physically plausible? A population cannot grow unboundedly — that sentence is a mark.</div>` },
 
 { h: 'Non-linear regression & R²', body: L`
 <p>The GDC fits all these families by least squares (this is AI HL 4.13's non-linear regression, adjacent and worth absorbing here). The coefficient of determination $R^2$ measures the fraction of variation the model explains — closer to 1 is tighter, and comparing $R^2$ across candidate models is a legitimate selection argument (mention it alongside a behaviour argument, not instead of one).</p>
-<div class="warn">⚠️ Trap: a high $R^2$ on the DATA RANGE says nothing about extrapolation. An exponential and a logistic can both fit early epidemic data with $R^2 &gt; 0.99$ and then diverge catastrophically. Interpolation: trust; extrapolation: justify with the model's built-in behaviour.</div>` },
+<div class="warn"><b>Trap:</b> a high $R^2$ on the DATA RANGE says nothing about extrapolation. An exponential and a logistic can both fit early epidemic data with $R^2 &gt; 0.99$ and then diverge catastrophically. Interpolation: trust; extrapolation: justify with the model's built-in behaviour.</div>` },
 ],
 },
 ];

@@ -32,8 +32,8 @@ function isGap(id) { return id[0] === 'g'; }
 function qsOf(id) { return BANK.filter(q => q.unit === id); }
 
 function refreshChips() {
-  document.getElementById('xp-pill').textContent = '⚡ ' + S.xp;
-  document.getElementById('streak-pill').textContent = '🔥 ' + S.streakDays;
+  document.getElementById('xp-pill').textContent = 'XP ' + S.xp;
+  document.getElementById('streak-pill').textContent = 'Streak ' + S.streakDays;
 }
 
 // ---------- nav ----------
@@ -42,14 +42,14 @@ function buildNav() {
   let html = '';
   const item = (hash, emoji, label, extra) =>
     '<button class="nav-item' + (route === hash ? ' active' : '') + '" data-go="' + hash + '">' +
-    '<span class="nav-emoji">' + emoji + '</span><span class="nav-label">' + label + '</span>' +
+    '<span class="nav-label">' + label + '</span>' +
     (extra || '') + '</button>';
 
-  html += item('#home', '🛰', 'Mission control');
-  html += item('#timeline', '🗓', 'Semester timeline');
-  html += item('#syllabus', '🗺', 'Syllabus map');
-  html += item('#review', '🔖', 'Review queue', '<span class="nav-count">' + S.flagged('review').length + '</span>');
-  html += item('#resources', '🧭', 'Resource hub');
+  html += item('#home', '', 'Mission control');
+  html += item('#timeline', '', 'Semester timeline');
+  html += item('#syllabus', '', 'Syllabus map');
+  html += item('#review', '', 'Review queue', '<span class="nav-count">' + S.flagged('review').length + '</span>');
+  html += item('#resources', '', 'Resource hub');
 
   html += '<div class="nav-section">Teacher units</div>';
   UNITS.forEach(u => {
@@ -79,14 +79,14 @@ function renderHome() {
   const next = ASSESS.find(a => daysUntil(a.d) >= 0);
 
   let html = '<div>';
-  html += '<h1 class="page-title">Mission control 🛰</h1>';
+  html += '<h1 class="page-title">Mission control</h1>';
   html += '<div class="page-sub">Your teacher\'s semester, the official AI HL syllabus, and the gaps between them — all offline.</div>';
 
   html += '<div class="hero-stats">' +
     '<div class="stat"><div class="big">' + o.attempts + '</div><div class="lbl">answers submitted</div></div>' +
     '<div class="stat"><div class="big">' + (o.acc === null ? '—' : o.acc + '%') + '</div><div class="lbl">accuracy</div></div>' +
     '<div class="stat"><div class="big">' + S.flagged('review').length + '</div><div class="lbl">flagged for review</div></div>' +
-    '<div class="stat"><div class="big">' + (next ? daysUntil(next.d) + 'd' : '🎉') + '</div><div class="lbl">' + (next ? 'until ' + next.name : 'no assessments left') + '</div></div>' +
+    '<div class="stat"><div class="big">' + (next ? daysUntil(next.d) + 'd' : 'done') + '</div><div class="lbl">' + (next ? 'until ' + next.name : 'no assessments left') + '</div></div>' +
     '</div>';
 
   html += '<h2 class="sec">Assessment countdown</h2><div class="assess-strip">';
@@ -106,8 +106,8 @@ function renderHome() {
   view.appendChild(grid1);
   UNITS.forEach(u => grid1.appendChild(unitCard(u)));
 
-  view.appendChild(el('<h2 class="sec">⚠ Gap zone — on the syllabus, not on the calendar</h2>'));
-  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions) are examinable in AI HL but have no slot on the semester plan. Some may be scheduled for semester 2 or already covered last year — learn them here either way, and confirm with your teacher. 🎯</div>'));
+  view.appendChild(el('<h2 class="sec">Gap zone — on the syllabus, not on the calendar</h2>'));
+  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions) are examinable in AI HL but have no slot on the semester plan. Some may be scheduled for semester 2 or already covered last year — learn them here either way, and confirm with your teacher.</div>'));
   const grid2 = el('<div class="grid2"></div>');
   view.appendChild(grid2);
   GAPS.forEach(g => grid2.appendChild(unitCard(g)));
@@ -118,7 +118,7 @@ function unitCard(u) {
   const pct = st.total ? Math.round(100 * st.correct / st.total) : 0;
   const c = el('<div class="card unit-card">' +
     '<span class="badge ' + (isGap(u.id) ? 'gap">GAP · ' + u.syll : 'sched">' + (u.code === 'Jan' ? 'Jan lesson' : 'Unit ' + u.code)) + '</span>' +
-    '<h3>' + u.emoji + ' ' + u.title + '</h3>' +
+    '<h3>' + u.title + '</h3>' +
     '<div class="uc-sub">' + u.sub + '</div>' +
     '<div class="prog-track"><div class="prog-fill" style="width:' + pct + '%"></div></div>' +
     '<div class="uc-meta"><span>' + st.correct + '/' + st.total + ' solved</span><span>' + (st.acc === null ? 'not started' : st.acc + '% accuracy') + '</span></div>' +
@@ -136,11 +136,11 @@ function renderUnit(id, tab, focusQ) {
   let html = '<div>';
   html += '<span class="badge ' + (isGap(id) ? 'gap">Gap — not on the calendar' : 'sched">On the calendar · unit ' + u.code) + '</span> ';
   html += '<span class="badge sub">' + u.syll + '</span>';
-  html += '<h1 class="page-title">' + u.emoji + ' ' + u.title + '</h1>';
+  html += '<h1 class="page-title">' + u.title + '</h1>';
   html += '<div class="page-sub">' + u.sub + (u.why ? ' <b>Why it\'s here:</b> ' + u.why : '') + '</div>';
   html += '<div class="tabs">' +
-    '<button class="tab' + (tab === 'notes' ? ' on' : '') + '" data-t="notes">📖 Notes</button>' +
-    '<button class="tab' + (tab === 'practice' ? ' on' : '') + '" data-t="practice">✏️ Practice (' + qsOf(id).length + ')</button>' +
+    '<button class="tab' + (tab === 'notes' ? ' on' : '') + '" data-t="notes">Notes</button>' +
+    '<button class="tab' + (tab === 'practice' ? ' on' : '') + '" data-t="practice">Practice (' + qsOf(id).length + ')</button>' +
     '</div></div>';
   view.innerHTML = html;
 
@@ -165,7 +165,7 @@ function renderUnit(id, tab, focusQ) {
     u.notes.forEach((n, ix) => {
       wrap.appendChild(el('<div class="card" id="note-' + id + '-' + ix + '"><h3>' + n.h + '</h3>' + MT.render(n.body) + '</div>'));
     });
-    const go = el('<button class="btn">✏️ Practice this unit →</button>');
+    const go = el('<button class="btn">Practice this unit →</button>');
     go.onclick = () => renderUnit(id, 'practice');
     wrap.appendChild(go);
     view.appendChild(wrap);
@@ -186,7 +186,7 @@ function renderUnit(id, tab, focusQ) {
 
 function renderTimeline() {
   crumb.textContent = 'Semester timeline';
-  let html = '<h1 class="page-title">🗓 Semester timeline</h1>' +
+  let html = '<h1 class="page-title">Semester timeline</h1>' +
     '<div class="page-sub">Transcribed from your teacher\'s calendar. Highlighted row = where you are now.</div><div class="card">';
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let marked = false;
@@ -202,8 +202,8 @@ function renderTimeline() {
 }
 
 const ST_META = {
-  sched: { cls: 'st-sched', label: '📅 Scheduled' },
-  gap: { cls: 'st-gap', label: '⚠ Gap' },
+  sched: { cls: 'st-sched', label: 'Scheduled' },
+  gap: { cls: 'st-gap', label: 'Gap' },
   y1: { cls: 'st-y1', label: 'Year 1' },
   done: { cls: 'st-done', label: '✓ Confident' },
   need: { cls: 'st-need', label: '✎ Needs work' },
@@ -211,17 +211,17 @@ const ST_META = {
 
 function renderSyllabus() {
   crumb.textContent = 'Syllabus map';
-  view.innerHTML = '<h1 class="page-title">🗺 AI HL syllabus map</h1>' +
+  view.innerHTML = '<h1 class="page-title">AI HL syllabus map</h1>' +
     '<div class="page-sub">Every syllabus item vs your teacher\'s calendar. Click a status chip to cycle your own mark: auto → ✓ confident → ✎ needs work.</div>' +
-    '<div class="legend"><span class="st st-sched">📅 Scheduled</span><span class="st st-gap">⚠ Gap</span><span class="st st-y1">Year 1</span><span class="st st-done">✓ Confident</span><span class="st st-need">✎ Needs work</span></div>';
+    '<div class="legend"><span class="st st-sched">Scheduled</span><span class="st st-gap">Gap</span><span class="st st-y1">Year 1</span><span class="st st-done">✓ Confident</span><span class="st st-need">✎ Needs work</span></div>';
 
   SYLL.forEach(group => {
     const card = el('<div class="card"><h3 style="margin:2px 0 8px">' + group.topic + '</h3></div>');
     group.items.forEach(it => {
       const row = el('<div class="syll-item"><span class="syll-code">' + it.code + '</span>' +
         '<span class="syll-name">' + it.name +
-        (it.when ? '<span class="syll-note">📅 ' + it.when + '</span>' : '') +
-        (it.note ? '<span class="syll-note">💡 ' + it.note + '</span>' : '') +
+        (it.when ? '<span class="syll-note">' + it.when + '</span>' : '') +
+        (it.note ? '<span class="syll-note">' + it.note + '</span>' : '') +
         '</span></div>');
       const st = document.createElement('button');
       const sync = () => {
@@ -251,17 +251,17 @@ function renderSyllabus() {
 
 function renderReview() {
   crumb.textContent = 'Review queue';
-  view.innerHTML = '<h1 class="page-title">🔖 Review queue</h1>' +
+  view.innerHTML = '<h1 class="page-title">Review queue</h1>' +
     '<div class="page-sub">Everything you flagged "review later". Clear the queue before each summative.</div>';
   const ids = S.flagged('review');
   Quiz.renderList(BANK.filter(q => ids.includes(q.id)), view,
-    'Queue\'s empty. Flag tricky questions with 🔖 Review later and they\'ll collect here.');
+    'Queue\'s empty. Flag tricky questions with "Review later" and they\'ll collect here.');
 }
 
 function renderResources() {
   crumb.textContent = 'Resource hub';
-  view.innerHTML = '<h1 class="page-title">🧭 Resource hub</h1>' +
-    '<div class="page-sub">Curated external firepower, mapped to your units. Links need internet — everything marked ★ also works offline once installed. Best workflow: watch the video BEFORE the unit starts in class, practise in Orbit, then go deeper.</div>';
+  view.innerHTML = '<h1 class="page-title">Resource hub</h1>' +
+    '<div class="page-sub">Curated external firepower, mapped to your units. Links need internet — the tools tagged "works offline" keep working once installed. Best workflow: watch the video BEFORE the unit starts in class, practise here, then go deeper.</div>';
   RESOURCES.forEach(cat => {
     const card = el('<div class="card"><h3 style="margin:2px 0 6px">' + cat.cat + '</h3>' +
       '<div class="page-sub" style="margin-bottom:10px">' + cat.blurb + '</div></div>');
@@ -373,6 +373,7 @@ document.addEventListener('keydown', e => {
 });
 
 // ---------- chrome ----------
+document.getElementById('brand-logo').innerHTML = KITTY.svg(30);
 document.getElementById('theme-btn').onclick = () => S.toggleTheme();
 document.getElementById('menu-btn').onclick = e => { e.stopPropagation(); sidebar.classList.toggle('open'); };
 document.addEventListener('click', e => {

@@ -7,7 +7,7 @@
 const KEY = 'aihl-orbit-v1';
 
 const DEFAULTS = {
-  theme: 'dark',
+  theme: 'light',
   xp: 0,
   streak: { last: '', days: 0 },
   flags: {},        // qid -> 'easy' | 'med' | 'hard' | 'review'

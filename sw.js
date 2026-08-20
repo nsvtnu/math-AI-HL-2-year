@@ -1,10 +1,11 @@
 // Orbit service worker — precache everything, serve cache-first.
 // The whole app is local files, so after one visit it works with zero network.
-const CACHE = 'aihl-orbit-v4';
+const CACHE = 'mathkitty-v3';
 const FILES = [
   './',
   './index.html',
   './css/app.css',
+  './js/kitty.js',
   './js/mtex.js',
   './js/store.js',
   './js/quiz.js',

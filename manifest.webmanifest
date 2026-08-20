@@ -1,12 +1,12 @@
 {
-  "name": "Mathkit",
-  "short_name": "Mathkit",
-  "description": "IB Math AI HL revision",
+  "name": "Mathkitty — AI HL Semester Companion",
+  "short_name": "Mathkitty",
+  "description": "IB Math AI HL revision aligned to the class calendar, plus the syllabus gaps. 100% offline.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0e1017",
-  "theme_color": "#0e1017",
+  "background_color": "#E6D2B9",
+  "theme_color": "#E6D2B9",
   "icons": [
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]

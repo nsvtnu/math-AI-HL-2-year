@@ -4,7 +4,7 @@
 // ============================================================
 const RESOURCES = [
 {
-cat: '🎬 Video — build intuition first',
+cat: 'Video — build intuition first',
 blurb: 'Watch these BEFORE the corresponding unit hits class. 20 minutes of the right video makes the lesson feel like revision.',
 items: [
   { name: '3Blue1Brown — Essence of Calculus', url: 'https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr',
@@ -34,8 +34,8 @@ items: [
 ],
 },
 {
-cat: '📘 IB AI HL — notes, questions, past papers',
-blurb: 'Structured IB-specific material to pair with Orbit\'s units.',
+cat: 'IB AI HL — notes, questions, past papers',
+blurb: 'Structured IB-specific material to pair with Mathkitty\'s units.',
 items: [
   { name: 'Christos Nikolaidis — Math AI notes', url: 'https://www.christosnikolaidis.com/en/mai/',
     what: 'FREE professional-grade lecture notes, exercises, topic tests and Paper 3 practice for AI HL, organised by syllabus topic. The best free structured notes on the internet.',
@@ -55,8 +55,8 @@ items: [
 ],
 },
 {
-cat: '🎯 TMUA — the October mission',
-blurb: 'Test window: 12–16 October 2026. Registration closes 28 September, 6pm BST (access arrangements: 14 September). Results: 16 November. ⚠ Heads-up: your Summative 3 is 13 October — TMUA WEEK. Plan the two weeks before carefully and tell your teacher early.',
+cat: 'TMUA — the October mission',
+blurb: 'Test window: 12–16 October 2026. Registration closes 28 September, 6pm BST (access arrangements: 14 September). Results: 16 November. Heads-up: your Summative 3 is 13 October — TMUA WEEK. Plan the two weeks before carefully and tell your teacher early.',
 items: [
   { name: 'UAT-UK official preparation materials', url: 'https://esat-tmua.ac.uk/tmua-preparation-materials/',
     what: 'THE core resource: test specification, the official "Notes on Logic and Proof" (Paper 2 depends on it), and 18 past/practice papers with explained answers. Do these timed.',
@@ -76,28 +76,28 @@ items: [
 ],
 },
 {
-cat: '🧰 Tools & apps',
-blurb: 'The daily-driver toolkit. Starred ones work offline — flight-friendly.',
+cat: 'Tools & apps',
+blurb: 'The daily-driver toolkit. The ones tagged "offline" keep working with no internet — flight-friendly.',
 items: [
-  { name: 'GeoGebra (apps) ★', url: 'https://www.geogebra.org/download',
+  { name: 'GeoGebra (apps)', url: 'https://www.geogebra.org/download',
     what: 'Graphing + CAS + 3D + statistics. The downloadable apps run fully OFFLINE — install before your flight and you have a graphing lab at 11,000 m.',
-    tags: ['offline ★', 'free'] },
+    tags: ['offline', 'free'] },
   { name: 'Desmos', url: 'https://www.desmos.com/calculator',
     what: 'The fastest way to see any function. Use it to CHECK intuition, not replace it — sketch first, then verify.',
     tags: ['graphing', 'free'] },
-  { name: 'Anki ★', url: 'https://apps.ankiweb.net/',
-    what: 'The spaced-repetition gold standard. Turn every Orbit "common mistake" and flagged question into a card; 10 min/day compounds brutally well.',
-    tags: ['offline ★', 'free desktop'] },
-  { name: 'TI-Nspire CX CAS Student Software ★', url: 'https://education.ti.com/en/products/computer-software/ti-nspire-cx-ii-student-sw',
+  { name: 'Anki', url: 'https://apps.ankiweb.net/',
+    what: 'The spaced-repetition gold standard. Turn every Mathkitty "common mistake" and flagged question into a card; 10 min/day compounds brutally well.',
+    tags: ['offline', 'free desktop'] },
+  { name: 'TI-Nspire CX CAS Student Software', url: 'https://education.ti.com/en/products/computer-software/ti-nspire-cx-ii-student-sw',
     what: 'Your handheld, emulated on the laptop. GDC fluency is free marks in AI HL — practise the exact keystrokes for tests, intersections, distributions and matrices.',
-    tags: ['offline ★', 'GDC skills', 'school license'] },
+    tags: ['offline', 'GDC skills', 'school license'] },
   { name: 'Wolfram|Alpha', url: 'https://www.wolframalpha.com/',
     what: 'Answer-checking for algebra, calculus and matrices. Step-by-step needs Pro; the plain answer is free and usually enough to know if you\'re right.',
     tags: ['checking', 'freemium'] },
 ],
 },
 {
-cat: '🧠 Go deeper',
+cat: 'Go deeper',
 blurb: 'For when a topic gets interesting and you want more than the syllabus.',
 items: [
   { name: "Paul's Online Math Notes", url: 'https://tutorial.math.lamar.edu/',

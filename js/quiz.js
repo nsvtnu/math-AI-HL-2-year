@@ -153,6 +153,21 @@ function render(q, host) {
     if (window.App) App.refreshChips();
   };
 
+  // Kitty reaction bubble — the mascot cheers or giggles at you
+  const showKittyReaction = (correct, container) => {
+    const msgs = correct ?
+      ['Purrfect!', 'Meow-nificent!', 'Pawsome!', 'The kitty approves.', 'Nailed it.'] :
+      ['Mrrp... not quite.', 'The kitty giggles.', 'Hiss. Try again!', 'Meow? Nope.', 'The kitty judges you, lovingly.'];
+    const msg = msgs[Math.floor(Math.random() * msgs.length)];
+    const old = container.querySelector('.kitty-pop');
+    if (old) old.remove();
+    const pop = document.createElement('div');
+    pop.className = 'kitty-pop ' + (correct ? 'happy' : 'sad');
+    pop.innerHTML = KITTY.svg(26) + '<span>' + msg + '</span>';
+    container.appendChild(pop);
+    setTimeout(() => pop.remove(), 1700);
+  };
+
   if (q.type === 'mcq') {
     const opts = document.createElement('div');
     opts.className = 'q-opts';
@@ -165,10 +180,12 @@ function render(q, host) {
           logOnce(!card.querySelector('.q-opt.wrong'));
           b.classList.add('correct');
           opts.querySelectorAll('.q-opt').forEach(x => (x.disabled = true));
+          showKittyReaction(true, card);
         } else {
           logOnce(false);
           b.classList.add('wrong');
           b.disabled = true;
+          showKittyReaction(false, card);
         }
       };
       opts.appendChild(b);
@@ -194,6 +211,7 @@ function render(q, host) {
       inp.classList.add(res.ok ? 'ok' : 'no');
       verdict.className = 'verdict ' + (res.ok ? 'ok' : 'no');
       verdict.textContent = res.ok ? '✓ correct' : (res.parsed ? '✗ not quite — try again or reveal' : "✗ couldn't read that (try e.g. 1/3, 8*pi, sqrt(2))");
+      showKittyReaction(res.ok, card);
     };
     btn.onclick = doCheck;
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') doCheck(); });
@@ -213,7 +231,7 @@ function render(q, host) {
   solBox.hidden = true;
   solBox.innerHTML = '<b>Solution</b>' +
     (q.sol || []).map((s, i) => '<div class="sol-step">' + (i + 1) + '. ' + MT.render(s) + '</div>').join('') +
-    (q.mist ? '<div class="mist-box"><b>⚠ Common mistake:</b> ' + MT.render(q.mist) + '</div>' : '');
+    (q.mist ? '<div class="mist-box"><b>Common mistake:</b> ' + MT.render(q.mist) + '</div>' : '');
   const mkBtn = (label, box) => {
     const b = document.createElement('button');
     b.className = 'reveal-btn';
@@ -221,8 +239,8 @@ function render(q, host) {
     b.onclick = () => { box.hidden = !box.hidden; };
     return b;
   };
-  actions.appendChild(mkBtn('👁 Show answer', ansBox));
-  actions.appendChild(mkBtn('📖 Full solution', solBox));
+  actions.appendChild(mkBtn('Show answer', ansBox));
+  actions.appendChild(mkBtn('Full solution', solBox));
   card.appendChild(actions);
   card.appendChild(ansBox);
   card.appendChild(solBox);
@@ -231,7 +249,7 @@ function render(q, host) {
   const flags = document.createElement('div');
   flags.className = 'flag-row';
   flags.innerHTML = '<span class="flag-lbl">Mark:</span>';
-  const FL = [['easy', 'Easy'], ['med', 'Medium'], ['hard', 'Hard'], ['review', '🔖 Review later']];
+  const FL = [['easy', 'Easy'], ['med', 'Medium'], ['hard', 'Hard'], ['review', 'Review later']];
   FL.forEach(([val, label]) => {
     const f = document.createElement('button');
     f.className = 'flag';

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0e1017">
-<title>Orbit — AI HL semester companion</title>
+<meta name="theme-color" content="#E6D2B9">
+<title>Mathkitty — AI HL semester companion</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/app.css">
@@ -13,16 +13,16 @@
 <div id="app">
   <aside id="sidebar">
     <div class="brand">
-      <div class="brand-logo">🛰</div>
+      <div class="brand-logo" id="brand-logo"></div>
       <div>
-        <div class="brand-name">Orbit</div>
+        <div class="brand-name">Mathkitty</div>
         <div class="brand-sub">AI HL · semester 1 · offline</div>
       </div>
     </div>
-    <button id="search-open" class="search-fake">🔍 Search everything… <span class="kbd">/</span></button>
+    <button id="search-open" class="search-fake">Search everything… <span class="kbd">/</span></button>
     <nav id="nav"></nav>
     <div id="side-foot">
-      <button id="theme-btn" class="ghost-btn">🌗 Theme</button>
+      <button id="theme-btn" class="ghost-btn">Theme</button>
       <span id="offline-dot" title="Everything works with zero internet">● offline-ready</span>
     </div>
   </aside>
@@ -32,8 +32,8 @@
       <button id="menu-btn" aria-label="Menu">☰</button>
       <div id="crumb">Mission control</div>
       <div class="top-chips">
-        <span id="streak-pill" title="Days in a row with at least one question answered">🔥 0</span>
-        <span id="xp-pill" title="XP from correct answers">⚡ 0</span>
+        <span id="streak-pill" title="Days in a row with at least one question answered">Streak 0</span>
+        <span id="xp-pill" title="XP from correct answers">XP 0</span>
       </div>
     </header>
     <div id="view"></div>
@@ -47,6 +47,7 @@
   </div>
 </div>
 
+<script src="js/kitty.js"></script>
 <script src="js/mtex.js"></script>
 <script src="js/store.js"></script>
 <script src="data/units.js"></script>
