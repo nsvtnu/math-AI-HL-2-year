@@ -1,11 +1,10 @@
 // ============================================================
-// Resource hub — curated external resources, mapped to units.
-// Links need internet; the rest of Orbit stays fully offline.
+// Resource hub — curated external resources
 // ============================================================
 const RESOURCES = [
 {
-cat: 'Video — build intuition first',
-blurb: 'Watch these BEFORE the corresponding unit hits class. 20 minutes of the right video makes the lesson feel like revision.',
+cat: 'Video
+blurb: '20 minutes of the right video makes the lesson feel like revision.',
 items: [
   { name: '3Blue1Brown — Essence of Calculus', url: 'https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr',
     what: 'The single best visual explanation of derivatives and integrals ever made. Watch chapters 1–8 alongside differentiation, the rest with integration.',
@@ -55,8 +54,7 @@ items: [
 ],
 },
 {
-cat: 'TMUA — the October mission',
-blurb: 'Test window: 12–16 October 2026. Registration closes 28 September, 6pm BST (access arrangements: 14 September). Results: 16 November. Heads-up: your Summative 3 is 13 October — TMUA WEEK. Plan the two weeks before carefully and tell your teacher early.',
+cat: 'TMUA',
 items: [
   { name: 'UAT-UK official preparation materials', url: 'https://esat-tmua.ac.uk/tmua-preparation-materials/',
     what: 'THE core resource: test specification, the official "Notes on Logic and Proof" (Paper 2 depends on it), and 18 past/practice papers with explained answers. Do these timed.',
@@ -77,7 +75,6 @@ items: [
 },
 {
 cat: 'Tools & apps',
-blurb: 'The daily-driver toolkit. The ones tagged "offline" keep working with no internet — flight-friendly.',
 items: [
   { name: 'GeoGebra (apps)', url: 'https://www.geogebra.org/download',
     what: 'Graphing + CAS + 3D + statistics. The downloadable apps run fully OFFLINE — install before your flight and you have a graphing lab at 11,000 m.',
