@@ -17,7 +17,7 @@ const SYM = {
   le: ' ≤ ', ge: ' ≥ ', ne: ' ≠ ', approx: ' ≈ ', equiv: ' ≡ ',
   times: ' × ', cdot: ' · ', div: ' ÷ ', pm: ' ± ', mp: ' ∓ ',
   to: ' → ', Rightarrow: ' ⇒ ', iff: ' ⇔ ', implies: ' ⇒ ',
-  infty: '∞', circ: '∘', deg: '°', degree: '°',
+  infty: '∞', circ: '∘', degree: '°',
   cap: ' ∩ ', cup: ' ∪ ', in: ' ∈ ', notin: ' ∉ ', subset: ' ⊂ ',
   ldots: '…', dots: '…', cdots: '⋯',
   sum: 'Σ', int: '∫', prod: 'Π',
@@ -25,7 +25,8 @@ const SYM = {
   sim: ' ∼ ', propto: ' ∝ ', forall: '∀', exists: '∃', emptyset: '∅',
   prime: '′', quad: '  ', mid: ' | ',
 };
-const FN = ['arcsin','arccos','arctan','sinh','cosh','tanh','sin','cos','tan','sec','csc','cot','ln','log','exp','lim','max','min','arg','mod','Re','Im','var','gcd'];
+const FN = ['arcsin','arccos','arctan','sinh','cosh','tanh','sin','cos','tan','sec','csc','cot','ln','log','exp','lim','max','min','arg','mod','deg','Re','Im','var','gcd'];
+const ACC = { bar: '¯', overline: '¯', hat: 'ˆ', tilde: '˜', dot: '˙', ddot: '¨' };
 
 function esc(c) {
   return c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c;
@@ -45,6 +46,7 @@ function math(src) {
     }
     if (name === 'sqrt') return '<span class="msqrt-sign">√</span><span class="msqrt">' + grp() + '</span>';
     if (name === 'mathbf' || name === 'vec' || name === 'boldsymbol') return '<b>' + grp() + '</b>';
+    if (ACC[name]) return '<span class="macc"><span class="acc">' + ACC[name] + '</span>' + grp() + '</span>';
     if (name === 'text' || name === 'mathrm') return '<span class="fn">' + grp() + '</span>';
     if (FN.includes(name)) return '<span class="fn">' + name + '</span>';
     if (SYM[name] !== undefined) return SYM[name];

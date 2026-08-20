@@ -150,8 +150,20 @@ function renderUnit(id, tab, focusQ) {
 
   if (tab === 'notes') {
     const wrap = el('<div class="note-sec"></div>');
-    u.notes.forEach(n => {
-      wrap.appendChild(el('<div class="card"><h3>' + n.h + '</h3>' + MT.render(n.body) + '</div>'));
+    if (u.notes.length > 3) {
+      const toc = el('<div class="note-toc"></div>');
+      u.notes.forEach((n, ix) => {
+        const chip = el('<button class="toc-chip">' + n.h + '</button>');
+        chip.onclick = () => {
+          const t = document.getElementById('note-' + id + '-' + ix);
+          if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        toc.appendChild(chip);
+      });
+      wrap.appendChild(toc);
+    }
+    u.notes.forEach((n, ix) => {
+      wrap.appendChild(el('<div class="card" id="note-' + id + '-' + ix + '"><h3>' + n.h + '</h3>' + MT.render(n.body) + '</div>'));
     });
     const go = el('<button class="btn">✏️ Practice this unit →</button>');
     go.onclick = () => renderUnit(id, 'practice');
