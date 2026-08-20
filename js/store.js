@@ -1,5 +1,5 @@
 // ============================================================
-// Store — all persistence in localStorage. No network, ever.
+// Store 
 // ============================================================
 (function () {
 'use strict';
