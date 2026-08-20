@@ -1,6 +1,4 @@
 // ============================================================
-// Orbit app — router, dashboard, units, syllabus map, search
-// ============================================================
 (function () {
 'use strict';
 
@@ -51,14 +49,14 @@ function buildNav() {
   html += item('#review', '', 'Review queue', '<span class="nav-count">' + S.flagged('review').length + '</span>');
   html += item('#resources', '', 'Resource hub');
 
-  html += '<div class="nav-section">Teacher units</div>';
+  html += '<div class="nav-section">Units</div>';
   UNITS.forEach(u => {
     const st = S.unitStats(u.id, BANK);
     html += item('#unit/' + u.id, u.emoji, u.code + ' · ' + u.title,
       st.correct ? '<span class="nav-count">' + st.correct + '/' + st.total + '</span>' : '');
   });
 
-  html += '<div class="nav-section">Gap zone — not on the calendar</div>';
+  html += '<div class="nav-section">Gaps</div>';
   GAPS.forEach(g => {
     const st = S.unitStats(g.id, BANK);
     html += item('#unit/' + g.id, g.emoji, g.title,
@@ -80,7 +78,7 @@ function renderHome() {
 
   let html = '<div>';
   html += '<h1 class="page-title">Mission control</h1>';
-  html += '<div class="page-sub">Your teacher\'s semester, the official AI HL syllabus, and the gaps between them — all offline.</div>';
+  html += '<div class="page-sub"> AI HL syllabus, and the gaps between.</div>';
 
   html += '<div class="hero-stats">' +
     '<div class="stat"><div class="big">' + o.attempts + '</div><div class="lbl">answers submitted</div></div>' +
@@ -102,12 +100,12 @@ function renderHome() {
   view.innerHTML = html;
 
   const grid1 = el('<div class="grid2"></div>');
-  view.appendChild(el('<h2 class="sec">Teacher units (on the calendar)</h2>'));
+  view.appendChild(el('<h2 class="sec">Units</h2>'));
   view.appendChild(grid1);
   UNITS.forEach(u => grid1.appendChild(unitCard(u)));
 
-  view.appendChild(el('<h2 class="sec">Gap zone — on the syllabus, not on the calendar</h2>'));
-  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions) are examinable in AI HL but have no slot on the semester plan. Some may be scheduled for semester 2 or already covered last year — learn them here either way, and confirm with your teacher.</div>'));
+  view.appendChild(el('<h2 class="sec">Gaps</h2>'));
+  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions)</div>'));
   const grid2 = el('<div class="grid2"></div>');
   view.appendChild(grid2);
   GAPS.forEach(g => grid2.appendChild(unitCard(g)));
@@ -187,7 +185,6 @@ function renderUnit(id, tab, focusQ) {
 function renderTimeline() {
   crumb.textContent = 'Semester timeline';
   let html = '<h1 class="page-title">Semester timeline</h1>' +
-    '<div class="page-sub">Transcribed from your teacher\'s calendar. Highlighted row = where you are now.</div><div class="card">';
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let marked = false;
   CAL.forEach(r => {
@@ -212,7 +209,6 @@ const ST_META = {
 function renderSyllabus() {
   crumb.textContent = 'Syllabus map';
   view.innerHTML = '<h1 class="page-title">AI HL syllabus map</h1>' +
-    '<div class="page-sub">Every syllabus item vs your teacher\'s calendar. Click a status chip to cycle your own mark: auto → ✓ confident → ✎ needs work.</div>' +
     '<div class="legend"><span class="st st-sched">Scheduled</span><span class="st st-gap">Gap</span><span class="st st-y1">Year 1</span><span class="st st-done">✓ Confident</span><span class="st st-need">✎ Needs work</span></div>';
 
   SYLL.forEach(group => {
@@ -252,7 +248,6 @@ function renderSyllabus() {
 function renderReview() {
   crumb.textContent = 'Review queue';
   view.innerHTML = '<h1 class="page-title">Review queue</h1>' +
-    '<div class="page-sub">Everything you flagged "review later". Clear the queue before each summative.</div>';
   const ids = S.flagged('review');
   Quiz.renderList(BANK.filter(q => ids.includes(q.id)), view,
     'Queue\'s empty. Flag tricky questions with "Review later" and they\'ll collect here.');
@@ -261,7 +256,6 @@ function renderReview() {
 function renderResources() {
   crumb.textContent = 'Resource hub';
   view.innerHTML = '<h1 class="page-title">Resource hub</h1>' +
-    '<div class="page-sub">Curated external firepower, mapped to your units. Links need internet — the tools tagged "works offline" keep working once installed. Best workflow: watch the video BEFORE the unit starts in class, practise here, then go deeper.</div>';
   RESOURCES.forEach(cat => {
     const card = el('<div class="card"><h3 style="margin:2px 0 6px">' + cat.cat + '</h3>' +
       '<div class="page-sub" style="margin-bottom:10px">' + cat.blurb + '</div></div>');
