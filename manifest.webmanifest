@@ -1,7 +1,7 @@
 {
-  "name": "Orbit — AI HL Semester Companion",
-  "short_name": "Orbit",
-  "description": "IB Math AI HL revision aligned to the class calendar, plus the syllabus gaps. 100% offline.",
+  "name": "Mathkit",
+  "short_name": "Mathkit",
+  "description": "IB Math AI HL revision",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
