@@ -1,12 +1,10 @@
 // ============================================================
-// Orbit data — teacher calendar, units, gap topics, syllabus map
 // Math in $...$ / $$...$$ rendered by MiniTeX. L = String.raw
 // keeps backslashes intact. Avoid "${" inside L`...`.
 // Note blocks: .fbox formula · .wex worked example · .warn trap · .tip exam tip
 // ============================================================
 const L = String.raw;
 
-// ---- The teacher's calendar (semester 1), transcribed from the sheet ----
 // y-m-d used for countdowns. unit '' = review/assessment/break rows.
 const CAL = [
   { d: '2026-08-18', dow: 'Tue', unit: '3.1', what: 'Modelling with sinusoidal curves' },
@@ -68,7 +66,7 @@ const ASSESS = [
 ];
 
 // ============================================================
-// Scheduled units (teacher's 3.x numbering)
+// Scheduled units 
 // ============================================================
 const UNITS = [
 {
@@ -711,7 +709,7 @@ notes: [
 ];
 
 // ============================================================
-// Gap Zone — on the AI HL syllabus but NOT on the semester calendar
+// Gaps you might have
 // ============================================================
 const GAPS = [
 {
