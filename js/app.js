@@ -313,31 +313,43 @@ function liveStreak(row) {
 }
 
 // ---------- account & auth ----------
-const acctBox = document.getElementById('account-box');
+const acctWrap = document.getElementById('account-wrap');
 let syncState = 'off';
 Cloud.onStatus(st => { syncState = st; renderAccount(); });
 
+const SYNC_LABEL = { syncing: 'syncing\u2026', ok: 'progress saved', error: 'sync failed', off: 'signed in' };
+
 function renderAccount() {
-  if (!Cloud.isConfigured) { acctBox.innerHTML = ''; return; }
-  if (Cloud.user) {
-    const label = syncState === 'syncing' ? 'syncing…' : syncState === 'ok' ? 'synced' : syncState === 'error' ? 'sync failed' : 'signed in';
-    acctBox.innerHTML = '';
-    const cardEl = el('<div class="acct-card">' +
-      '<span class="acct-kitty">' + KITTY.svg(24) + '</span>' +
-      '<span style="flex:1;min-width:0"><span class="acct-name">' + Cloud.user + '</span>' +
-      '<span class="acct-sync ' + syncState + '">' + label + '</span></span>' +
-      '</div>');
-    const out = el('<button class="acct-out" title="Sign out">sign out</button>');
-    out.onclick = () => Cloud.logOut().then(() => { renderAccount(); buildNav(); });
-    cardEl.appendChild(out);
-    acctBox.appendChild(cardEl);
-  } else {
-    acctBox.innerHTML = '';
-    const b = el('<button class="btn gray acct-signin">Sign in / Create account</button>');
+  if (!Cloud.isConfigured) { acctWrap.innerHTML = ''; return; }
+  acctWrap.innerHTML = '';
+
+  if (!Cloud.user) {
+    const b = el('<button class="btn small acct-btn">Sign in</button>');
     b.onclick = openAuth;
-    acctBox.appendChild(b);
+    acctWrap.appendChild(b);
+    return;
   }
+
+  const label = SYNC_LABEL[syncState] || SYNC_LABEL.off;
+  const chip = el('<button class="acct-chip" title="' + Cloud.user + ' \u2014 ' + label + '">' +
+    KITTY.svg(20) + '<span class="acct-name">' + Cloud.user + '</span>' +
+    '<span class="acct-dot ' + syncState + '"></span></button>');
+  const menu = el('<div class="acct-menu" hidden>' +
+    '<div class="acct-menu-name">' + Cloud.user + '</div>' +
+    '<div class="acct-sync ' + syncState + '">' + label + '</div></div>');
+  const out = el('<button class="acct-out">Sign out</button>');
+  out.onclick = () => Cloud.logOut().then(() => { renderAccount(); buildNav(); route(); });
+  menu.appendChild(out);
+  chip.onclick = e => { e.stopPropagation(); menu.hidden = !menu.hidden; };
+  acctWrap.appendChild(chip);
+  acctWrap.appendChild(menu);
 }
+
+// one listener for the whole app, so re-rendering the chip cannot pile them up
+document.addEventListener('click', () => {
+  const m = document.querySelector('.acct-menu');
+  if (m) m.hidden = true;
+});
 
 const authOverlay = document.getElementById('auth-overlay');
 const authError = document.getElementById('auth-error');
