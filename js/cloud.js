@@ -67,14 +67,16 @@ function decFields(fields) {
 
 // ---------- transport ----------
 const AUTH_MSG = {
+  API_KEY_INVALID: 'The Firebase apiKey in js/config.js is wrong — re-copy it from Project settings',
+  API_KEY_NOT_VALID: 'The Firebase apiKey in js/config.js is wrong — re-copy it from Project settings',
   EMAIL_EXISTS: 'That username is taken',
   EMAIL_NOT_FOUND: 'Wrong username or password',
   INVALID_PASSWORD: 'Wrong username or password',
   INVALID_LOGIN_CREDENTIALS: 'Wrong username or password',
   WEAK_PASSWORD: 'Password needs at least 6 characters',
   TOO_MANY_ATTEMPTS_TRY_LATER: 'Too many tries — wait a minute and retry',
-  CONFIGURATION_NOT_FOUND: 'Email/Password sign-in is not switched on in Firebase yet (setup step 3)',
-  OPERATION_NOT_ALLOWED: 'Email/Password sign-in is not switched on in Firebase yet (setup step 3)',
+  CONFIGURATION_NOT_FOUND: 'Email/Password sign-in is not switched on in Firebase yet (setup step 2)',
+  OPERATION_NOT_ALLOWED: 'Email/Password sign-in is not switched on in Firebase yet (setup step 2)',
 };
 
 async function authCall(method, body) {
@@ -105,7 +107,7 @@ async function store(path, opts) {
   if (!res.ok) {
     const msg = ((data || {}).error || {}).message || ('HTTP ' + res.status);
     const err = new Error(/permission|PERMISSION/i.test(msg)
-      ? 'Firestore rules are blocking this — publish the rules from firestore-rules.txt (setup step 5)'
+      ? 'Firestore rules are blocking this — publish the rules from firestore-rules.txt (setup step 4)'
       : msg);
     err.status = res.status;
     throw err;
