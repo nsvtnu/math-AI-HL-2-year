@@ -21,6 +21,7 @@
     </div>
     <button id="search-open" class="search-fake">Search everything… <span class="kbd">/</span></button>
     <nav id="nav"></nav>
+    <div id="account-box"></div>
     <div id="side-foot">
       <button id="theme-btn" class="ghost-btn">Theme</button>
     </div>
@@ -31,12 +32,28 @@
       <button id="menu-btn" aria-label="Menu">☰</button>
       <div id="crumb">Mission control</div>
       <div class="top-chips">
-        <span id="streak-pill" title="Days in a row">Streak 0</span>
+        <span id="streak-pill" title="Days in a row with at least one question answered">Streak 0</span>
         <span id="xp-pill" title="XP from correct answers">XP 0</span>
       </div>
     </header>
     <div id="view"></div>
   </main>
+</div>
+
+<div id="auth-overlay" hidden>
+  <div id="auth-panel">
+    <div id="auth-kitty"></div>
+    <h3 id="auth-title">Sign in to Mathkitty</h3>
+    <p class="auth-sub">Your progress syncs across devices, and you appear on the class leaderboard.</p>
+    <input id="auth-user" type="text" placeholder="username" autocomplete="username" maxlength="16">
+    <input id="auth-pass" type="password" placeholder="password" autocomplete="current-password">
+    <div id="auth-error" hidden></div>
+    <div class="auth-actions">
+      <button id="auth-login" class="btn">Sign in</button>
+      <button id="auth-signup" class="btn gray">Create account</button>
+    </div>
+    <button id="auth-close" class="ghost-btn">Cancel</button>
+  </div>
 </div>
 
 <div id="search-overlay" hidden>
@@ -49,6 +66,8 @@
 <script src="js/kitty.js"></script>
 <script src="js/mtex.js"></script>
 <script src="js/store.js"></script>
+<script src="js/config.js"></script>
+<script src="js/cloud.js"></script>
 <script src="data/units.js"></script>
 <script src="data/bank.js"></script>
 <script src="data/resources.js"></script>

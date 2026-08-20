@@ -11,8 +11,9 @@ const DEFAULTS = {
   xp: 0,
   streak: { last: '', days: 0 },
   flags: {},        // qid -> 'easy' | 'med' | 'hard' | 'review'
-  attempts: [],     // { q, u, ok, ts }   (u = unit id)
+  attempts: [],     // { q, u, ok, first, ts }   (u = unit id)
   over: {},         // syllabus code -> 'done' | 'need'  (personal override)
+  synced: 0,        // how many attempts the cloud has already stored
 };
 
 let state = load();
@@ -93,6 +94,46 @@ const S = {
       correct: att.filter(a => a.ok).length,
       acc: att.length ? Math.round(100 * att.filter(a => a.ok).length / att.length) : null,
     };
+  },
+
+  // ---------- cloud sync support ----------
+  unsyncedAttempts() { return state.attempts.slice(state.synced); },
+  markSynced() { state.synced = state.attempts.length; save(); },
+  exportData() {
+    return { flags: state.flags, over: state.over, streak: state.streak };
+  },
+  // Merge the cloud copy with this device, then recompute xp + streak
+  // from the combined attempt log so every device agrees.
+  mergeCloud(remoteAttempts, remoteData) {
+    const seen = new Set();
+    const all = [];
+    state.attempts.concat(remoteAttempts || []).forEach(a => {
+      const k = a.q + '|' + a.ts;
+      if (seen.has(k)) return;
+      seen.add(k);
+      all.push(a);
+    });
+    all.sort((a, b) => a.ts - b.ts);
+    // an attempt that already lives on the server counts as synced;
+    // exact bookkeeping: everything currently merged minus local-fresh ones
+    const freshLocal = state.attempts.slice(state.synced)
+      .filter(a => !(remoteAttempts || []).some(r => r.q === a.q && r.ts === a.ts));
+    state.attempts = all;
+    state.synced = all.length - freshLocal.length;
+    // recompute xp: 10 per question ever answered correctly
+    const solved = new Set();
+    all.forEach(a => { if (a.ok) solved.add(a.q); });
+    state.xp = solved.size * 10;
+    // recompute streak from the days you actually practised
+    const days = new Set(all.map(a => dayKey(new Date(a.ts))));
+    let d = new Date(), run = 0;
+    if (!days.has(dayKey(d))) d = new Date(Date.now() - 86400000);   // streak may end yesterday
+    while (days.has(dayKey(d))) { run++; d = new Date(d.getTime() - 86400000); }
+    if (run) state.streak = { last: dayKey(new Date(days.has(dayKey(new Date())) ? Date.now() : Date.now() - 86400000)), days: run };
+    // flags / overrides: remote first, local edits win
+    state.flags = Object.assign({}, (remoteData && remoteData.flags) || {}, state.flags);
+    state.over = Object.assign({}, (remoteData && remoteData.over) || {}, state.over);
+    save();
   },
 };
 

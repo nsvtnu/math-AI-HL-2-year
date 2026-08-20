@@ -1,11 +1,13 @@
 // Orbit service worker — precache everything, serve cache-first.
 // The whole app is local files, so after one visit it works with zero network.
-const CACHE = 'mathkitty-v4';
+const CACHE = 'mathkitty-v5';
 const FILES = [
   './',
   './index.html',
   './css/app.css',
   './js/kitty.js',
+  './js/config.js',
+  './js/cloud.js',
   './js/mtex.js',
   './js/store.js',
   './js/quiz.js',
@@ -30,6 +32,7 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  if (!e.request.url.startsWith(self.location.origin)) return;   // cloud calls go straight to the network
   e.respondWith(
     caches.match(e.request, { ignoreSearch: true }).then(hit =>
       hit ||

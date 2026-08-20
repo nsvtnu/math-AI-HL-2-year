@@ -151,7 +151,15 @@ function render(q, host) {
     const first = !S.attempts.some(a => a.q === q.id && a.ok);
     S.addAttempt({ q: q.id, u: q.unit, ok, first });
     if (window.App) App.refreshChips();
+    if (window.Cloud) {
+      Cloud.notifyAttempt();
+      Cloud.qstat(q.id).then(st => {
+        if (!st || card.querySelector('.class-stat')) return;
+        card.appendChild(el2('<span class="class-stat"><b>' + st.pct + '%</b> of the class got this right (' + st.attempts + (st.attempts === 1 ? ' try' : ' tries') + ')</span>'));
+      }).catch(() => {});
+    }
   };
+  const el2 = html => { const d = document.createElement('div'); d.innerHTML = html; return d.firstElementChild; };
 
   // Kitty reaction bubble — the mascot cheers or giggles at you
   const showKittyReaction = (correct, container) => {

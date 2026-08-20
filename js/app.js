@@ -48,6 +48,7 @@ function buildNav() {
   html += item('#syllabus', '', 'Syllabus map');
   html += item('#review', '', 'Review queue', '<span class="nav-count">' + S.flagged('review').length + '</span>');
   html += item('#resources', '', 'Resource hub');
+  if (Cloud.isConfigured) html += item('#leaderboard', '', 'Leaderboard');
 
   html += '<div class="nav-section">Units</div>';
   UNITS.forEach(u => {
@@ -270,6 +271,103 @@ function renderResources() {
   });
 }
 
+function renderLeaderboard() {
+  crumb.textContent = 'Leaderboard';
+  view.innerHTML = '<h1 class="page-title">Class leaderboard</h1>';
+  if (!Cloud.isConfigured) {
+    view.appendChild(el('<div class="card">The cloud backend is not connected yet — see SETUP-BACKEND.md in the repo.</div>'));
+    return;
+  }
+  if (!Cloud.user) {
+    const c = el('<div class="card">Sign in to see the leaderboard and appear on it. </div>');
+    const b = el('<button class="btn">Sign in</button>');
+    b.onclick = openAuth;
+    c.appendChild(b);
+    view.appendChild(c);
+    return;
+  }
+  const card = el('<div class="card">Loading…</div>');
+  view.appendChild(card);
+  Cloud.leaderboard().then(rows => {
+    if (!rows || !rows.length) { card.textContent = 'Nobody on the board yet — answer a question to claim rank 1.'; return; }
+    card.innerHTML = '';
+    rows.forEach((r, i) => {
+      const streak = liveStreak(r);
+      card.appendChild(el('<div class="lb-row' + (r.username === Cloud.user ? ' me' : '') + '">' +
+        '<span class="lb-rank">' + (i + 1) + '</span>' +
+        '<span class="lb-kitty">' + KITTY.svg(22) + '</span>' +
+        '<span class="lb-name">' + r.username + '</span>' +
+        '<span class="lb-num"><b>' + r.xp + '</b> XP</span>' +
+        '<span class="lb-num">' + r.solved + ' solved</span>' +
+        '<span class="lb-num">' + (streak ? streak + 'd streak' : '—') + '</span>' +
+        '</div>'));
+    });
+  }).catch(() => { card.textContent = 'Could not load the leaderboard — check your connection and try again.'; });
+}
+function liveStreak(row) {
+  const st = row.streak_last ? { last: row.streak_last, days: row.streak_days } : null;
+  if (!st || !st.days) return 0;
+  const today = new Date(), y = new Date(Date.now() - 86400000);
+  const k = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  return (st.last === k(today) || st.last === k(y)) ? st.days : 0;
+}
+
+// ---------- account & auth ----------
+const acctBox = document.getElementById('account-box');
+let syncState = 'off';
+Cloud.onStatus(st => { syncState = st; renderAccount(); });
+
+function renderAccount() {
+  if (!Cloud.isConfigured) { acctBox.innerHTML = ''; return; }
+  if (Cloud.user) {
+    const label = syncState === 'syncing' ? 'syncing…' : syncState === 'ok' ? 'synced' : syncState === 'error' ? 'sync failed' : 'signed in';
+    acctBox.innerHTML = '';
+    const cardEl = el('<div class="acct-card">' +
+      '<span class="acct-kitty">' + KITTY.svg(24) + '</span>' +
+      '<span style="flex:1;min-width:0"><span class="acct-name">' + Cloud.user + '</span>' +
+      '<span class="acct-sync ' + syncState + '">' + label + '</span></span>' +
+      '</div>');
+    const out = el('<button class="acct-out" title="Sign out">sign out</button>');
+    out.onclick = () => Cloud.logOut().then(() => { renderAccount(); buildNav(); });
+    cardEl.appendChild(out);
+    acctBox.appendChild(cardEl);
+  } else {
+    acctBox.innerHTML = '';
+    const b = el('<button class="btn gray acct-signin">Sign in / Create account</button>');
+    b.onclick = openAuth;
+    acctBox.appendChild(b);
+  }
+}
+
+const authOverlay = document.getElementById('auth-overlay');
+const authError = document.getElementById('auth-error');
+document.getElementById('auth-kitty').innerHTML = KITTY.svg(44);
+
+function openAuth() {
+  authError.hidden = true;
+  authOverlay.hidden = false;
+  document.getElementById('auth-user').focus();
+}
+function closeAuth() { authOverlay.hidden = true; }
+document.getElementById('auth-close').onclick = closeAuth;
+authOverlay.addEventListener('click', e => { if (e.target === authOverlay) closeAuth(); });
+
+function authGo(fn) {
+  const u = document.getElementById('auth-user').value.trim();
+  const p = document.getElementById('auth-pass').value;
+  authError.hidden = true;
+  fn(u, p).then(() => {
+    closeAuth();
+    renderAccount(); buildNav(); route();
+  }).catch(e => {
+    authError.textContent = e.message;
+    authError.hidden = false;
+  });
+}
+document.getElementById('auth-login').onclick = () => authGo(Cloud.logIn);
+document.getElementById('auth-signup').onclick = () => authGo(Cloud.signUp);
+document.getElementById('auth-pass').addEventListener('keydown', e => { if (e.key === 'Enter') authGo(Cloud.logIn); });
+
 // ---------- search ----------
 let INDEX = null;
 function buildIndex() {
@@ -387,6 +485,7 @@ function route() {
   else if (page === 'syllabus') renderSyllabus();
   else if (page === 'review') renderReview();
   else if (page === 'resources') renderResources();
+  else if (page === 'leaderboard') renderLeaderboard();
   else renderHome();
   buildNav();
   refreshChips();
@@ -399,5 +498,6 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 window.App = { refreshChips };
+renderAccount();
 route();
 })();

@@ -253,6 +253,42 @@ h2.sec { font-size: 21px; margin: 32px 0 10px; }
 .mt-block .mt { white-space: normal; }
 
 /* ---------- responsive ---------- */
+/* ---------- account & cloud ---------- */
+#account-box { padding: 10px 6px 0; }
+.acct-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+.acct-kitty { flex-shrink: 0; display: flex; }
+.acct-name { flex: 1; min-width: 0; font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.acct-sync { font-size: 11px; color: var(--muted); }
+.acct-sync.ok { color: var(--good); }
+.acct-sync.error { color: var(--bad); }
+.acct-out { background: none; border: none; color: var(--muted); font-size: 11.5px; cursor: pointer; padding: 2px; }
+.acct-out:hover { color: var(--bad); }
+.acct-signin { width: 100%; }
+
+#auth-overlay { position: fixed; inset: 0; z-index: 110; background: rgba(91,49,19,.45); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start; padding-top: 12vh; }
+#auth-overlay[hidden] { display: none; }
+#auth-panel { width: min(360px, 92vw); background: var(--card); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+#auth-kitty { display: flex; }
+#auth-panel h3 { margin: 0; font-size: 18px; }
+.auth-sub { margin: 0; font-size: 12.5px; color: var(--muted); text-align: center; }
+#auth-panel input { width: 100%; padding: 10px 13px; font-size: 14.5px; background: var(--bg2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; }
+#auth-panel input:focus { outline: none; border-color: var(--acc); }
+#auth-error { width: 100%; font-size: 12.5px; color: var(--bad); background: var(--card2); border-left: 3px solid var(--bad); border-radius: 8px; padding: 7px 11px; }
+.auth-actions { display: flex; gap: 8px; width: 100%; }
+.auth-actions .btn { flex: 1; }
+
+.lb-row { display: flex; align-items: center; gap: 12px; padding: 9px 6px; border-bottom: 1px dashed var(--border); font-size: 14.5px; }
+.lb-row:last-child { border-bottom: none; }
+.lb-row.me { background: var(--card2); border-radius: 10px; }
+.lb-rank { width: 30px; flex-shrink: 0; font-weight: 800; color: var(--muted); text-align: center; }
+.lb-kitty { flex-shrink: 0; display: flex; }
+.lb-name { flex: 1; min-width: 0; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-num { font-size: 13px; color: var(--muted); flex-shrink: 0; }
+.lb-num b { color: var(--acc2); }
+
+.class-stat { display: block; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.class-stat b { color: var(--acc2); }
+
 /* Kitty reaction bubble */
 .kitty-pop {
   position: absolute; top: 10px; right: 12px; z-index: 50;
