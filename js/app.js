@@ -78,7 +78,7 @@ function renderHome() {
 
   let html = '<div>';
   html += '<h1 class="page-title">Mission control</h1>';
-  html += '<div class="page-sub"> AI HL syllabus, and the gaps between.</div>';
+  html += '<div class="page-sub">The AI HL syllabus — and the gaps between.</div>';
 
   html += '<div class="hero-stats">' +
     '<div class="stat"><div class="big">' + o.attempts + '</div><div class="lbl">answers submitted</div></div>' +
@@ -105,7 +105,7 @@ function renderHome() {
   UNITS.forEach(u => grid1.appendChild(unitCard(u)));
 
   view.appendChild(el('<h2 class="sec">Gaps</h2>'));
-  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions)</div>'));
+  view.appendChild(el('<div class="card gap-banner">These ' + GAPS.length + ' topics (' + gapsTotal + ' questions) are examinable in AI HL.</div>'));
   const grid2 = el('<div class="grid2"></div>');
   view.appendChild(grid2);
   GAPS.forEach(g => grid2.appendChild(unitCard(g)));
@@ -132,7 +132,7 @@ function renderUnit(id, tab, focusQ) {
   tab = tab || 'notes';
 
   let html = '<div>';
-  html += '<span class="badge ' + (isGap(id) ? 'gap">Gap — not on the calendar' : 'sched">On the calendar · unit ' + u.code) + '</span> ';
+  html += '<span class="badge ' + (isGap(id) ? 'gap">Gap' : 'sched">Unit ' + u.code) + '</span> ';
   html += '<span class="badge sub">' + u.syll + '</span>';
   html += '<h1 class="page-title">' + u.title + '</h1>';
   html += '<div class="page-sub">' + u.sub + (u.why ? ' <b>Why it\'s here:</b> ' + u.why : '') + '</div>';
@@ -184,7 +184,7 @@ function renderUnit(id, tab, focusQ) {
 
 function renderTimeline() {
   crumb.textContent = 'Semester timeline';
-  let html = '<h1 class="page-title">Semester timeline</h1>' +
+  let html = '<h1 class="page-title">Semester timeline</h1><div class="card">';
   const today = new Date(); today.setHours(0, 0, 0, 0);
   let marked = false;
   CAL.forEach(r => {
@@ -247,7 +247,7 @@ function renderSyllabus() {
 
 function renderReview() {
   crumb.textContent = 'Review queue';
-  view.innerHTML = '<h1 class="page-title">Review queue</h1>' +
+  view.innerHTML = '<h1 class="page-title">Review queue</h1>';
   const ids = S.flagged('review');
   Quiz.renderList(BANK.filter(q => ids.includes(q.id)), view,
     'Queue\'s empty. Flag tricky questions with "Review later" and they\'ll collect here.');
@@ -255,10 +255,10 @@ function renderReview() {
 
 function renderResources() {
   crumb.textContent = 'Resource hub';
-  view.innerHTML = '<h1 class="page-title">Resource hub</h1>' +
+  view.innerHTML = '<h1 class="page-title">Resource hub</h1>';
   RESOURCES.forEach(cat => {
     const card = el('<div class="card"><h3 style="margin:2px 0 6px">' + cat.cat + '</h3>' +
-      '<div class="page-sub" style="margin-bottom:10px">' + cat.blurb + '</div></div>');
+      (cat.blurb ? '<div class="page-sub" style="margin-bottom:10px">' + cat.blurb + '</div>' : '') + '</div>');
     cat.items.forEach(r => {
       card.appendChild(el('<div class="res-item">' +
         '<a href="' + r.url + '" target="_blank" rel="noopener">' + r.name + ' ↗</a>' +

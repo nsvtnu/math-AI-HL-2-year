@@ -3,7 +3,7 @@
 // ============================================================
 const RESOURCES = [
 {
-cat: 'Video
+cat: 'Video',
 blurb: '20 minutes of the right video makes the lesson feel like revision.',
 items: [
   { name: '3Blue1Brown — Essence of Calculus', url: 'https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr',
