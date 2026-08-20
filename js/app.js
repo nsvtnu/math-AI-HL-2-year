@@ -275,7 +275,7 @@ function renderLeaderboard() {
   crumb.textContent = 'Leaderboard';
   view.innerHTML = '<h1 class="page-title">Class leaderboard</h1>';
   if (!Cloud.isConfigured) {
-    view.appendChild(el('<div class="card">The cloud backend is not connected yet — see SETUP-BACKEND.md in the repo.</div>'));
+    view.appendChild(el('<div class="card">The cloud backend is not connected yet — follow SETUP-BACKEND.md in the repo (about 5 minutes).</div>'));
     return;
   }
   if (!Cloud.user) {

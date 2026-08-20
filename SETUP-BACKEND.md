@@ -1,47 +1,59 @@
 # Backend setup — one-time, about 5 minutes
 
-The code is already wired. You just create the (free) database and paste two values.
+Uses **Firebase**, so you sign in with the Google account you already have. The code is already wired; you create the project and paste two values.
 
-## 1. Create the Supabase project
+## 1. Create the project
 
-1. Go to https://supabase.com and click **Start your project** — sign in with your **GitHub** account.
-2. Click **New project**.
-   - Name: `mathkitty`
-   - Database password: click **Generate** and SAVE it somewhere (you rarely need it, but losing it is annoying).
-   - Region: pick the one closest to your school.
-3. Wait ~1 minute while it provisions.
+1. Go to https://console.firebase.google.com and sign in with your Google account.
+2. Click **Create a project** (or **Add project**).
+   - Name it `mathkitty`.
+   - On the Google Analytics step, switch it **off** — you do not need it.
+3. Wait about 30 seconds, then click **Continue**.
 
-## 2. Create the tables
+## 2. Turn on username sign-in
 
-1. In the left sidebar open **SQL Editor** → **New query**.
-2. Open the file `supabase-schema.sql` from this repo, copy ALL of it, paste it in, press **Run**.
-3. It should say "Success. No rows returned".
+1. Left sidebar → **Build** → **Authentication** → **Get started**.
+2. Choose **Email/Password** from the provider list.
+3. Toggle the first switch (**Email/Password**) to **Enabled**. Leave "Email link" off. **Save**.
 
-## 3. Switch off email confirmation
+Accounts use usernames that are turned into internal addresses, so no real email is ever sent and nobody has to confirm anything.
 
-Accounts use usernames, not real emails, so confirmation mails must be off:
+## 3. Create the database
 
-1. Left sidebar → **Authentication** → **Sign In / Providers** (or **Providers**).
-2. Open **Email** and turn **Confirm email** OFF. Save.
+1. Left sidebar → **Build** → **Firestore Database** → **Create database**.
+2. Pick the location closest to your school (this cannot be changed later).
+3. Choose **Start in production mode** — locked down by default, which is what you want. Click **Create**.
 
-## 4. Connect the app
+## 4. Publish the security rules
 
-1. Left sidebar → **Project Settings** → **API** (or **Data API**).
-2. Copy two values:
-   - **Project URL** (like `https://abcdefghijkl.supabase.co`)
-   - **anon / public** key (the long one marked public)
-3. Open `js/config.js` in this repo and replace the two placeholders with them. The anon key is public by design — committing it is fine; row-level security in the database is what protects the data.
+The database currently blocks everything, so this step is required or the app cannot read or write anything.
 
-## 5. Ship it
+1. In Firestore Database, open the **Rules** tab.
+2. Delete what is there, paste the entire contents of `firestore-rules.txt` from this repo, and press **Publish**.
 
-Commit and push in GitHub Desktop. After Vercel redeploys, a **Sign in / Create account** button appears at the bottom of the sidebar, plus a **Leaderboard** page in the nav.
+## 5. Connect the app
+
+1. Click the **gear icon** (top left) → **Project settings**.
+2. Scroll to **Your apps** and click the **web icon** `</>`.
+3. Nickname it `mathkitty`, leave Firebase Hosting unchecked, click **Register app**.
+4. You are shown a `firebaseConfig` block. You only need two lines from it:
+   - `apiKey`
+   - `projectId`
+5. Open `js/config.js` in this repo and paste both in, replacing the placeholders.
+
+The API key is public by design — it identifies the project, it does not grant access. The rules from step 4 are what actually protect the data.
+
+## 6. Ship it
+
+Commit and push in GitHub Desktop. Once Vercel redeploys, a **Sign in / Create account** button appears at the bottom of the sidebar and a **Leaderboard** page appears in the nav.
 
 ## What your classmates do
 
-Nothing technical: open the site → **Sign in / Create account** → pick a username + password. Their progress then follows them across devices, they appear on the leaderboard, and after answering a question they see what percentage of the class got it right.
+Open the site → **Sign in / Create account** → pick a username and password. That is all. Their progress then follows them between phone and laptop, they appear on the leaderboard, and after answering a question they see what percentage of the class got it right.
 
 ## Notes
 
-- The app still works fully offline and logged out — the cloud is a bonus layer, not a requirement.
-- Free tier limits are far beyond what a class will ever hit.
-- If someone forgets their password there is no reset flow (no real emails). They can make a new account, or you can delete the old one in Supabase → Authentication → Users.
+- The app still works fully offline and signed out — the cloud is a bonus layer, not a requirement.
+- The free Spark plan is far more than a class will ever use, and it cannot run up a bill.
+- Nobody can read anyone else's progress; the leaderboard row (username, XP, solved, streak) is the only shared data.
+- There is no password reset, since there are no real emails. If someone forgets theirs, delete the account in **Authentication → Users** and let them sign up again.

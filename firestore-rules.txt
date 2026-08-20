@@ -1,0 +1,38 @@
+rules_version = '2';
+
+// Mathkitty security rules.
+// Paste this whole file into Firebase Console > Firestore Database >
+// Rules, then press Publish.
+//
+// The short version: you can only ever write your own data, everyone
+// signed in can read the leaderboard, and nobody can read anyone
+// else's private progress.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Private progress: attempts log, flags, syllabus marks.
+    // Only the owner can read or write it.
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Public leaderboard row: username, xp, solved, streak.
+    // Anyone signed in can read; only the owner can write their row.
+    match /leaderboard/{uid} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Class question counters. Signed-in users add to them; the
+    // documents hold only totals, never who answered what.
+    match /qstats/{qid} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Anything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
