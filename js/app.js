@@ -10,6 +10,11 @@ const crumb = document.getElementById('crumb');
 S.applyTheme();
 
 // ---------- helpers ----------
+function esc(v) {
+  return String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 function el(html) {
   const d = document.createElement('div');
   d.innerHTML = html;
@@ -296,7 +301,7 @@ function renderLeaderboard() {
       card.appendChild(el('<div class="lb-row' + (r.username === Cloud.user ? ' me' : '') + '">' +
         '<span class="lb-rank">' + (i + 1) + '</span>' +
         '<span class="lb-kitty">' + KITTY.svg(22) + '</span>' +
-        '<span class="lb-name">' + r.username + '</span>' +
+        '<span class="lb-name">' + esc(r.username) + '</span>' +
         '<span class="lb-num"><b>' + r.xp + '</b> XP</span>' +
         '<span class="lb-num">' + r.solved + ' solved</span>' +
         '<span class="lb-num">' + (streak ? streak + 'd streak' : '—') + '</span>' +
@@ -331,11 +336,11 @@ function renderAccount() {
   }
 
   const label = SYNC_LABEL[syncState] || SYNC_LABEL.off;
-  const chip = el('<button class="acct-chip" title="' + Cloud.user + ' \u2014 ' + label + '">' +
-    KITTY.svg(20) + '<span class="acct-name">' + Cloud.user + '</span>' +
+  const chip = el('<button class="acct-chip" title="' + esc(Cloud.user) + ' \u2014 ' + label + '">' +
+    KITTY.svg(20) + '<span class="acct-name">' + esc(Cloud.user) + '</span>' +
     '<span class="acct-dot ' + syncState + '"></span></button>');
   const menu = el('<div class="acct-menu" hidden>' +
-    '<div class="acct-menu-name">' + Cloud.user + '</div>' +
+    '<div class="acct-menu-name">' + esc(Cloud.user) + '</div>' +
     '<div class="acct-sync ' + syncState + '">' + label + '</div></div>');
   const out = el('<button class="acct-out">Sign out</button>');
   out.onclick = () => Cloud.logOut().then(() => { renderAccount(); buildNav(); route(); });
@@ -479,6 +484,15 @@ document.addEventListener('keydown', e => {
 // ---------- chrome ----------
 document.getElementById('brand-logo').innerHTML = KITTY.svg(30);
 document.getElementById('theme-btn').onclick = () => S.toggleTheme();
+document.getElementById('reset-btn').onclick = () => {
+  const warn = Cloud.user
+    ? 'Erase all your progress?\n\nThis clears XP, streak, flags and syllabus marks on this device, and the next sync will clear them in the cloud too.'
+    : 'Erase all your progress on this device?\n\nXP, streak, flags and syllabus marks will be cleared. This cannot be undone.';
+  if (!confirm(warn)) return;
+  S.resetProgress();
+  if (Cloud.user) Cloud.sync();
+  route();
+};
 document.getElementById('menu-btn').onclick = e => { e.stopPropagation(); sidebar.classList.toggle('open'); };
 document.addEventListener('click', e => {
   if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target.id !== 'menu-btn') {

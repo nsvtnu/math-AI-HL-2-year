@@ -4,7 +4,7 @@
    Light sage #E5E6B5 · Meadow #CACD7D · Olive #969752 · Moss #706C3E */
 :root, html[data-theme="light"] {
   --bg: #E6D2B9; --bg2: #FFDBDD; --card: #FFDBDD; --card2: #EFBFC2;
-  --border: #B08F7A; --text: #5B3113; --muted: #A7626B;
+  --border: #B08F7A; --text: #5B3113; --muted: #8A4A55;
   --acc: #CB8D95; --acc2: #A7626B; --good: #706C3E; --bad: #793138; --warn: #969752;
   --good-bg: #E5E6B5; --btn-bg1: #793138; --btn-bg2: #A7626B; --btn-fg: #FFDBDD;
   --shadow: 0 6px 18px rgba(91,49,19,.18);
@@ -12,7 +12,7 @@
 }
 html[data-theme="dark"] {
   --bg: #5B3113; --bg2: #793138; --card: #793138; --card2: #5B3113;
-  --border: #B08F7A; --text: #E6D2B9; --muted: #CB8D95;
+  --border: #B08F7A; --text: #E6D2B9; --muted: #E3B2B8;
   --acc: #EFBFC2; --acc2: #FFDBDD; --good: #CACD7D; --bad: #EFBFC2; --warn: #E5E6B5;
   --good-bg: #706C3E; --btn-bg1: #EFBFC2; --btn-bg2: #CB8D95; --btn-fg: #5B3113;
   --shadow: 0 6px 18px rgba(0,0,0,.30);

@@ -17,17 +17,38 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
 
-    // Public leaderboard row: username, xp, solved, streak.
-    // Anyone signed in can read; only the owner can write their row.
+    // Public leaderboard row. Anyone signed in can read it; only the
+    // owner can write their own row, and only in a valid shape:
+    // a well-formed username and an XP that matches the solved count.
+    // This stops both name spoofing and casually invented scores.
     match /leaderboard/{uid} {
       allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null
+                   && request.auth.uid == uid
+                   && request.resource.data.username is string
+                   && request.resource.data.username.matches('^[a-z0-9_]{3,16}$')
+                   && request.resource.data.solved is int
+                   && request.resource.data.solved >= 0
+                   && request.resource.data.solved <= 2000
+                   && request.resource.data.xp is int
+                   && request.resource.data.xp == request.resource.data.solved * 10
+                   && request.resource.data.streakDays is int
+                   && request.resource.data.streakDays >= 0
+                   && request.resource.data.streakDays <= 1000;
     }
 
-    // Class question counters. Signed-in users add to them; the
-    // documents hold only totals, never who answered what.
+    // Class question counters. Signed-in users may only nudge a counter
+    // up by one at a time, so nobody can rewrite the class statistics.
+    // The documents hold totals only, never who answered what.
     match /qstats/{qid} {
-      allow read, write: if request.auth != null;
+      allow read: if request.auth != null;
+      allow create: if request.auth != null
+                    && request.resource.data.attempts == 1
+                    && request.resource.data.get('correct', 0) <= 1;
+      allow update: if request.auth != null
+                    && request.resource.data.attempts == resource.data.attempts + 1
+                    && request.resource.data.get('correct', 0) >= resource.data.get('correct', 0)
+                    && request.resource.data.get('correct', 0) <= resource.data.get('correct', 0) + 1;
     }
 
     // Anything else is closed.

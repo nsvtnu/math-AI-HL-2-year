@@ -96,6 +96,12 @@ const S = {
     };
   },
 
+  resetProgress() {
+    const theme = state.theme;
+    state = JSON.parse(JSON.stringify(DEFAULTS));
+    state.theme = theme;
+    save();
+  },
   // ---------- cloud sync support ----------
   unsyncedAttempts() { return state.attempts.slice(state.synced); },
   markSynced() { state.synced = state.attempts.length; save(); },
