@@ -29,7 +29,7 @@ button { font-family: inherit; }
 #sidebar {
   width: 290px; flex-shrink: 0; padding: 18px 14px;
   background: var(--bg2); border-right: 1px solid var(--border);
-  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: flex; flex-direction: column;
 }
 .brand { display: flex; gap: 12px; align-items: center; padding: 2px 6px 14px; }
@@ -62,7 +62,8 @@ button { font-family: inherit; }
 .nav-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nav-count { font-size: 11px; color: var(--muted); }
 
-#side-foot { margin-top: auto; padding: 12px 6px 4px; display: flex; align-items: center; justify-content: space-between; }
+#nav { flex: 1; min-height: 0; overflow-y: auto; }
+#side-foot { margin-top: 0; padding: 12px 6px 4px; display: flex; align-items: center; justify-content: space-between; }
 .ghost-btn { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 9px; padding: 7px 12px; cursor: pointer; font-size: 13px; }
 .ghost-btn:hover { border-color: var(--acc); }
 #offline-dot { font-size: 11px; color: var(--good); }
@@ -254,7 +255,7 @@ h2.sec { font-size: 21px; margin: 32px 0 10px; }
 
 /* ---------- responsive ---------- */
 /* ---------- account & cloud ---------- */
-#account-box { padding: 10px 6px 0; }
+#account-box { padding: 10px 6px 0; flex-shrink: 0; border-top: 1px solid var(--border); margin-top: 6px; }
 .acct-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
 .acct-kitty { flex-shrink: 0; display: flex; }
 .acct-name { flex: 1; min-width: 0; font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
