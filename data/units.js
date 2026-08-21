@@ -73,6 +73,7 @@ const UNITS = [
 id: 'u31', code: '3.1', title: 'Complex Numbers & Sinusoids',
 sub: 'Argand geometry, polar form, and why adding sine waves is secretly complex-number addition.',
 syll: 'AI HL 1.12, 1.13 · 2.5 · 3.8',
+video: { id: 'T647CGsuOVU', title: 'Welch Labs — Imaginary Numbers Are Real (Part 1)', why: 'Makes complex numbers feel discovered rather than invented, which is exactly this unit.' },
 notes: [
 { h: 'Sinusoidal models — the anatomy', body: L`
 <p>Anything that repeats on a fixed cycle — tides, daylight hours, a Ferris wheel seat, alternating current — gets modelled by a sinusoid. The general form has four dials, and you should know exactly what each one does:</p>
@@ -84,7 +85,8 @@ notes: [
 <li><b>Phase shift</b> $c$ — slides the whole wave right by $c$ (because the bracket reads $t - c$).</li>
 </ul>
 <p>Cosine is just a shifted sine: $\cos t = \sin(t + \frac{\pi}{2})$. Use whichever starts in the right place: sine starts at the midline going up, cosine starts at a maximum.</p>
-<div class="warn"><b>Trap:</b> in $\sin(2t - 3)$ the phase shift is NOT 3. Factor first: $\sin(2(t - 1.5))$, so the shift is 1.5. The IB writes both forms deliberately.</div>` },
+<div class="warn"><b>Trap:</b> in $\sin(2t - 3)$ the phase shift is NOT 3. Factor first: $\sin(2(t - 1.5))$, so the shift is 1.5. The IB writes both forms deliberately.</div>
+<div class="viz" data-viz="sinusoid"></div>` },
 
 { h: 'Fitting a sinusoid to data', body: L`
 <p>Real questions hand you a max, a min, and timing information, and ask for the model. The workflow is always the same four steps — extract the dials in this order:</p>
@@ -132,7 +134,8 @@ notes: [
 <li>Naive angle: $\arctan\frac{1}{-1} = -\frac{\pi}{4}$ — but the point $(-1, 1)$ is in the SECOND quadrant, so that is wrong.</li>
 <li>Sketch it: the arrow points up-left, $\frac{\pi}{4}$ above the negative real axis, so $\arg z = \pi - \frac{\pi}{4} = \frac{3\pi}{4}$.</li>
 </ol></div>
-<div class="warn"><b>Trap:</b> $\arctan\frac{y}{x}$ only lands in the right quadrant when $x &gt; 0$. ALWAYS sketch the point before writing down an argument — quadrants 2 and 3 need a correction by $\pm\pi$.</div>` },
+<div class="warn"><b>Trap:</b> $\arctan\frac{y}{x}$ only lands in the right quadrant when $x &gt; 0$. ALWAYS sketch the point before writing down an argument — quadrants 2 and 3 need a correction by $\pm\pi$.</div>
+<div class="viz" data-viz="argand"></div>` },
 
 { h: 'Polar & Euler form: multiplication is rotation', body: L`
 <p>Once you know $r = |z|$ and $\theta = \arg z$, you can rebuild the number. Three equivalent costumes:</p>
@@ -167,6 +170,7 @@ notes: [
 id: 'u32', code: '3.2', title: 'Differentiation & Antidifferentiation',
 sub: 'The full HL derivative toolkit, then running it in reverse.',
 syll: 'AI HL 5.9 · 5.11',
+video: { id: '9vKqVkMQHKk', title: '3Blue1Brown — The paradox of the derivative', why: 'Why a "rate of change at an instant" is not nonsense. Watch before the rules.' },
 notes: [
 { h: 'What a derivative actually is', body: L`
 <p>The derivative $f'(x)$ is the <b>gradient of the curve at a point</b> — formally, the limit of the gradient of chords through the point as they shrink:</p>
@@ -178,7 +182,8 @@ notes: [
 <li><b>As a function:</b> $f'$ is a new function, the "gradient machine" — feed it any $x$, get the slope there.</li>
 </ul>
 <p>Notation is interchangeable: $f'(x)$, $y'$, $\frac{dy}{dx}$, $\frac{d}{dx}f(x)$ all mean the same thing. The $\frac{dy}{dx}$ form earns its keep in related rates and DEs, where "small change in $y$ per small change in $x$" is the useful reading.</p>
-<div class="tip"><b>Tip:</b> Sign reading: $f' &gt; 0$ ⇒ increasing, $f' &lt; 0$ ⇒ decreasing, $f' = 0$ ⇒ stationary. Half of unit 3.3 is just this sentence applied repeatedly.</div>` },
+<div class="tip"><b>Tip:</b> Sign reading: $f' &gt; 0$ ⇒ increasing, $f' &lt; 0$ ⇒ decreasing, $f' = 0$ ⇒ stationary. Half of unit 3.3 is just this sentence applied repeatedly.</div>
+<div class="viz" data-viz="tangent"></div>` },
 
 { h: 'Power rule — and the art of rewriting first', body: L`
 <div class="fbox">$\frac{d}{dx}x^n = nx^{n-1}$ for ANY real $n$ — including negative and fractional</div>
@@ -253,6 +258,7 @@ notes: [
 id: 'u33', code: '3.3', title: 'Applications of Differentiation',
 sub: 'Tangents, normals, max/min tests, optimisation and related rates.',
 syll: 'AI HL 5.4 · 5.6 · 5.7 · 5.9 · 5.10',
+video: { id: 'BLkz5LGWihw', title: '3Blue1Brown — Higher order derivatives', why: 'What the second derivative actually measures, which is the whole max/min test.' },
 notes: [
 { h: 'Tangents & normals — the 3-step ritual', body: L`
 <p>The tangent at $x = a$ is the line through the point with the curve's slope; the normal is perpendicular to it. Every tangent/normal question is the same ritual:</p>
@@ -281,7 +287,8 @@ notes: [
 <li>Signs of $f'$: for $x &lt; -1$ positive, between $-1$ and $1$ negative, after $1$ positive.</li>
 <li>So $x = -1$ is a local max ($+ \to -$), value $f(-1) = 2$; and $x = 1$ is a local min, value $-2$.</li>
 </ol></div>
-<p>Note "local": a local max need not be the biggest value overall. On a closed interval, the global max/min lives either at a stationary point or at an ENDPOINT — check both.</p>` },
+<p>Note "local": a local max need not be the biggest value overall. On a closed interval, the global max/min lives either at a stationary point or at an ENDPOINT — check both.</p>
+<div class="viz" data-viz="tangent"></div>` },
 
 { h: 'Second derivative, concavity & inflection', body: L`
 <p>$f''$ measures how the slope itself is changing — the curve's <b>concavity</b>:</p>
@@ -342,6 +349,7 @@ notes: [
 id: 'u34', code: '3.4', title: 'Integration: Areas & Solids',
 sub: 'Definite integrals, area between curves, the trapezoidal rule, and volumes of revolution.',
 syll: 'AI HL 5.5 · 5.8 · 5.11 · 5.12',
+video: { id: 'rfG8ce4nNh0', title: '3Blue1Brown — Integration and the fundamental theorem', why: 'Why area and antiderivatives are the same idea running backwards.' },
 notes: [
 { h: 'The definite integral & the fundamental theorem', body: L`
 <p>$\int_a^b f(x)\,dx$ accumulates $f$ over $[a, b]$ — geometrically, the signed area between curve and $x$-axis. The <b>Fundamental Theorem of Calculus</b> says you evaluate it with any antiderivative:</p>
@@ -395,7 +403,8 @@ notes: [
 <li>$h = 2$, ends $0 + 0$, middles $1.8 + 2.6 + 2.1 = 6.5$.</li>
 <li>$A \approx \frac{2}{2}\left[0 + 0 + 2(6.5)\right] = 13$ m².</li>
 </ol></div>
-<p><b>Over- or underestimate?</b> Concave-up curve → chords sit above the curve → overestimate; concave-down → underestimate. Sketch one strip and the answer is visible; examiners want that reasoning, not a memorised sentence.</p>` },
+<p><b>Over- or underestimate?</b> Concave-up curve → chords sit above the curve → overestimate; concave-down → underestimate. Sketch one strip and the answer is visible; examiners want that reasoning, not a memorised sentence.</p>
+<div class="viz" data-viz="area"></div>` },
 
 { h: 'Volumes of revolution', body: L`
 <p>Spin the region under $y = f(x)$ about the $x$-axis: every cross-section is a disc of radius $y$ and thickness $dx$, so summing disc volumes $\pi y^2\,dx$ gives:</p>
@@ -414,6 +423,7 @@ notes: [
 id: 'u35', code: '3.5', title: 'Differential Equations',
 sub: 'Separation of variables, slope fields, Euler, and coupled systems — the HL boss level.',
 syll: 'AI HL 5.14 – 5.17 (+5.18 via systems)',
+video: { id: 'p_di4Zn4wz4', title: '3Blue1Brown — Differential equations, a tourist\'s guide', why: 'Slope fields, phase space and why DEs are usually solved numerically.' },
 notes: [
 { h: 'What a DE is (and how to verify a solution)', body: L`
 <p>A <b>differential equation</b> relates a function to its own derivatives — it describes how something CHANGES, and solving it recovers what the thing IS. The solution is a <em>function</em> (or a family of functions), not a number. A <b>general solution</b> carries an arbitrary constant; an <b>initial condition</b> pins it to a <b>particular solution</b>.</p>
@@ -462,7 +472,8 @@ notes: [
 <li><b>Matching a field to its DE:</b> interrogate special places — where is the slope 0? Where is it independent of $x$ (dashes identical along horizontal lines ⇒ DE has no $x$)? Positive vs negative regions?</li>
 <li><b>Isoclines:</b> the set of points where the slope equals a constant $m$ is the curve $f(x,y) = m$ — useful for sketching fields by hand.</li>
 </ul>
-<div class="tip"><b>Tip:</b> Exam MCQ strategy: compute the slope at one or two easy points (like the origin, or a point where $x = 0$) and eliminate fields that disagree. Two points usually kill three options.</div>` },
+<div class="tip"><b>Tip:</b> Exam MCQ strategy: compute the slope at one or two easy points (like the origin, or a point where $x = 0$) and eliminate fields that disagree. Two points usually kill three options.</div>
+<div class="viz" data-viz="slopefield"></div>` },
 
 { h: "Euler's method — pretend it's straight", body: L`
 <p>When a DE will not separate, walk numerically: pretend the curve is straight for a tiny step $h$, then re-aim.</p>
@@ -489,13 +500,15 @@ notes: [
 <p>$M$ = <span class="mx"><span>1</span><span>4</span><span>1</span><span>1</span></span>: trace $= 2$, det $= 1 - 4 = -3$. Eigenvalues solve $\lambda^2 - 2\lambda - 3 = 0$ → $\lambda = 3, -1$. Opposite signs ⇒ SADDLE: trajectories approach along the $\lambda = -1$ eigenvector direction, then get flung out along the $\lambda = 3$ direction.</p>
 </div>
 <p><b>Euler for systems</b> is the same one-step logic run on both variables at once, always from CURRENT values: $x_{n+1} = x_n + h(ax_n + by_n)$, $y_{n+1} = y_n + h(cx_n + dy_n)$.</p>
-<div class="warn"><b>Trap:</b> updating $x$ first and then using the NEW $x$ to update $y$ inside the same step. Both updates use the old pair $(x_n, y_n)$ — compute both slopes before moving anything.</div>` },
+<div class="warn"><b>Trap:</b> updating $x$ first and then using the NEW $x$ to update $y$ inside the same step. Both updates use the old pair $(x_n, y_n)$ — compute both slopes before moving anything.</div>
+<div class="viz" data-viz="phase"></div>` },
 ],
 },
 {
 id: 'u36', code: '3.6', title: 'Graph Theory',
 sub: 'Networks, adjacency matrices, Eulerian trails, spanning trees, Chinese postman & TSP.',
 syll: 'AI HL 3.14 – 3.16',
+video: { id: 'LFKZLXVO-Dg', title: 'Reducible — Introduction to graph theory', why: 'Vertices, edges and why the Eulerian result works — the vocabulary made visual.' },
 notes: [
 { h: 'The vocabulary bank', body: L`
 <p>A <b>graph</b> is dots and lines: <b>vertices</b> joined by <b>edges</b>. Nearly every mark in this unit starts with a definition, so nail the vocabulary:</p>
@@ -519,7 +532,8 @@ notes: [
 <li>Sum $= 14$, so $e = 7$ — the sum test passes.</li>
 <li>Odd-degree vertices: four of them — even ✓. So no contradiction; such a graph exists (draw $K_4$ plus a vertex tapped into one edge... or just trust the lemma both ways: an ODD count of odd degrees would have been impossible).</li>
 </ol></div>
-<p>This lemma is the engine behind the Eulerian results below and behind "explain why no such graph exists" questions — if the degree list sums odd or has an odd number of odd entries, it cannot be drawn.</p>` },
+<p>This lemma is the engine behind the Eulerian results below and behind "explain why no such graph exists" questions — if the degree list sums odd or has an odd number of odd entries, it cannot be drawn.</p>
+<div class="viz" data-viz="graph"></div>` },
 
 { h: 'Adjacency matrices & counting walks', body: L`
 <p>Number the vertices; put $A_{ij}$ = number of edges from $i$ to $j$. For undirected graphs $A$ is symmetric; for directed graphs it need not be; for weighted graphs store weights instead (with a separate convention for "no edge"). The killer theorem:</p>
@@ -591,6 +605,7 @@ notes: [
 id: 'u37', code: '3.7', title: 'Inference & Hypothesis Testing',
 sub: 'Confidence intervals, z/t/chi-square/Poisson/correlation tests, and Type I/II errors.',
 syll: 'AI HL 4.11 · 4.16 · 4.18',
+video: { id: 'vemZtEM63GY', title: 'StatQuest — p-values, clearly explained', why: 'The definition that examiners want, in plain language.' },
 notes: [
 { h: 'The big idea: sample → population', body: L`
 <p>You never see the whole population — you see a sample and want to reason backwards. Everything in this unit is one of two moves:</p>
@@ -641,7 +656,8 @@ notes: [
 <li>GDC t-test → p $\approx 0.0125$.</li>
 <li>$0.0125 &lt; 0.05$ → reject $H_0$: significant evidence at the 5% level that the mean fill is below 500 g.</li>
 </ol></div>
-<div class="warn"><b>Trap:</b> never write "accept $H_0$" — a big p-value means INSUFFICIENT EVIDENCE against it, not proof of it. The wording mark is real and examiners collect it every session.</div>` },
+<div class="warn"><b>Trap:</b> never write "accept $H_0$" — a big p-value means INSUFFICIENT EVIDENCE against it, not proof of it. The wording mark is real and examiners collect it every session.</div>
+<div class="viz" data-viz="normal"></div>` },
 
 { h: 'The test menu — picking the right one', body: L`
 <p>Read the question, identify the parameter, pick from the menu:</p>
@@ -679,12 +695,14 @@ notes: [
 id: 'u38', code: 'Jan', title: 'Log-Log Plots & Linearisation',
 sub: 'Turning curves into straight lines to identify models — the January special.',
 syll: 'AI HL 2.10',
+video: { id: 'Kas0tIxDvrg', title: '3Blue1Brown — Exponential growth and epidemics', why: 'Shows why exponential data gets read on logarithmic axes.' },
 notes: [
 { h: 'Why take logs at all', body: L`
 <p>Straight lines are the only shape humans can reliably fit by eye and read parameters from. Logs convert multiplicative structure into additive structure — turning the two big model families into lines:</p>
 <div class="fbox">Power law $y = ax^n$: $\ \log y = \log a + n\log x$ → straight on LOG-LOG axes, slope $= n$, intercept $= \log a$</div>
 <div class="fbox">Exponential $y = ab^x$: $\ \log y = \log a + x\log b$ → straight on SEMI-LOG axes (log $y$ only), slope $= \log b$, intercept $= \log a$</div>
-<p>The diagnostic runs backwards too: plot the data both ways, and WHICHEVER plot straightens the data names the model family. That one sentence is most of the January lesson.</p>` },
+<p>The diagnostic runs backwards too: plot the data both ways, and WHICHEVER plot straightens the data names the model family. That one sentence is most of the January lesson.</p>
+<div class="viz" data-viz="loglog"></div>` },
 
 { h: 'Worked: recovering a power law', body: L`
 <div class="wex"><div class="wex-t">Worked example</div>
@@ -716,6 +734,7 @@ const GAPS = [
 id: 'g1', title: 'Matrices & Eigenvalues', syll: 'AI HL 1.14 · 1.15',
 why: 'Not on the calendar, but unit 3.5 (coupled DEs) and Markov chains quietly depend on it.',
 sub: 'Operations, determinants, inverses, eigenvalues & eigenvectors.',
+video: { id: 'PFDu9oVAE-g', title: '3Blue1Brown — Eigenvectors and eigenvalues', why: 'Required viewing: turns the formula into a picture you can actually see.' },
 notes: [
 { h: 'Matrix arithmetic', body: L`
 <p>A matrix is a grid of numbers; an $m \times n$ matrix has $m$ rows and $n$ columns (rows first, always). Add and subtract entrywise (same shape required); multiply by a scalar entrywise. Matrix MULTIPLICATION is row-into-column:</p>
@@ -762,7 +781,8 @@ notes: [
 <li>Characteristic equation: $\lambda^2 - 7\lambda + 10 = 0$ → $(\lambda - 5)(\lambda - 2) = 0$.</li>
 <li>$\lambda = 5$ and $\lambda = 2$. Check: sum $= 7 =$ trace ✓, product $= 10 = \det$ ✓.</li>
 </ol></div>
-<div class="tip"><b>Tip:</b> The trace/det checks catch sign slips instantly — use them every single time. Complex eigenvalues (negative discriminant) are fine and meaningful: they signal ROTATION, which is exactly what makes spirals in unit 3.5.</div>` },
+<div class="tip"><b>Tip:</b> The trace/det checks catch sign slips instantly — use them every single time. Complex eigenvalues (negative discriminant) are fine and meaningful: they signal ROTATION, which is exactly what makes spirals in unit 3.5.</div>
+<div class="viz" data-viz="phase"></div>` },
 
 { h: 'Eigenvectors — and why any of this matters', body: L`
 <p>For each $\lambda$, solve $(M - \lambda I)\mathbf{v} = \mathbf{0}$. The two equations will be multiples of each other (that is the point — det is zero), so one equation determines the DIRECTION and any scalar multiple works.</p>
@@ -780,6 +800,7 @@ notes: [
 id: 'g2', title: 'Matrix Transformations', syll: 'AI HL 3.9',
 why: 'Geometric transformations as 2×2 matrices — absent from the calendar.',
 sub: 'Rotations, reflections, stretches, and determinant = area factor.',
+video: { id: 'kYB8IZa5AuE', title: '3Blue1Brown — Linear transformations and matrices', why: 'Why the columns of a matrix are where the basis arrows land.' },
 notes: [
 { h: 'Matrices move the plane', body: L`
 <p>Multiplying position vectors by a 2×2 matrix transforms the whole plane, and the matrix is easy to READ:</p>
@@ -790,7 +811,8 @@ notes: [
 <li>$(1, 0)$ stays $(1, 0)$; $(0, 1)$ flips to $(0, -1)$.</li>
 <li>Columns in order: $M$ = <span class="mx"><span>1</span><span>0</span><span>0</span><span>−1</span></span>. Done — no formula sheet needed if you can picture two arrows.</li>
 </ol></div>
-<p>To transform a shape, multiply each vertex (stack vertices as columns and do it in one multiplication on the GDC).</p>` },
+<p>To transform a shape, multiply each vertex (stack vertices as columns and do it in one multiplication on the GDC).</p>
+<div class="viz" data-viz="matrix"></div>` },
 
 { h: 'The standard catalogue', body: L`
 <div class="fbox">Rotation by $\theta$ anticlockwise about O: columns $(\cos\theta, \sin\theta)$ and $(-\sin\theta, \cos\theta)$</div>
@@ -826,6 +848,7 @@ notes: [
 id: 'g3', title: 'Vectors', syll: 'AI HL 3.10 – 3.13',
 why: 'A whole AHL block (dot/cross products, vector lines, vector kinematics) with zero calendar slots.',
 sub: 'Components, products, lines, and motion.',
+video: { id: 'fNk_zzaMoSs', title: '3Blue1Brown — Vectors, what even are they?', why: 'The three ways to read a vector, reconciled in ten minutes.' },
 notes: [
 { h: 'Vectors as displacements', body: L`
 <p>A vector is a magnitude + direction package — "3 km north-east" — written in components $\mathbf{v} = (v_1, v_2, v_3)$. Position vectors point from the origin to a point; displacement between points:</p>
@@ -846,7 +869,8 @@ notes: [
 </ol></div>
 <div class="wex"><div class="wex-t">Worked example — find the unknown</div>
 <p>Find $k$ so that $(k, 3, -1)$ ⟂ $(2, k, 4)$: dot $= 2k + 3k - 4 = 0$ → $k = \frac{4}{5}$.</p>
-</div>` },
+</div>
+<div class="viz" data-viz="vectors"></div>` },
 
 { h: 'The cross product — perpendiculars & areas', body: L`
 <div class="fbox">$\mathbf{a}\times\mathbf{b}$ is a VECTOR ⟂ to both, magnitude $|\mathbf{a}||\mathbf{b}|\sin\theta$ = area of the parallelogram they span (half it for the triangle)</div>
@@ -888,6 +912,7 @@ notes: [
 id: 'g4', title: 'Markov Chains', syll: 'AI HL 4.19',
 why: 'Transition matrices + steady states are examinable and not scheduled this semester.',
 sub: 'Transition matrices, powers, and steady states.',
+video: { id: 'i3AkTO9HLXo', title: 'Normalized Nerd — Markov chains clearly explained', why: 'States, transition matrices and steady states, built up from scratch.' },
 notes: [
 { h: 'States & the transition matrix', body: L`
 <p>A Markov chain is a system hopping between <b>states</b> (sunny/rainy, brand A/brand B) where the probability of the next state depends only on the CURRENT one. Store the hop probabilities in a <b>transition matrix</b> $T$: entry in row $i$, column $j$ = P(next state $i$ | current state $j$) — so each COLUMN sums to 1.</p>
@@ -920,13 +945,15 @@ notes: [
 <li>$0.4 + 0.4p = p$ → $p = \frac{2}{3}$. Steady state: $(\frac{2}{3}, \frac{1}{3})$ — long-run it is sunny two days in three.</li>
 <li>GDC cross-check: raise $T$ to a big power (say $T^{50}$) — every column converges to $(\frac{2}{3}, \frac{1}{3})$ ✓.</li>
 </ol></div>
-<p>Note what the convergence of ALL columns means: the long-run forecast does not care where the chain started. For a regular chain (some power of $T$ has all entries positive), the steady state is unique and always takes over — a sentence worth writing in conclusions.</p>` },
+<p>Note what the convergence of ALL columns means: the long-run forecast does not care where the chain started. For a regular chain (some power of $T$ has all entries positive), the steady state is unique and always takes over — a sentence worth writing in conclusions.</p>
+<div class="viz" data-viz="markov"></div>` },
 ],
 },
 {
 id: 'g5', title: 'Estimators, Combinations & CLT', syll: 'AI HL 4.14 · 4.15',
 why: 'The theory the 3.7 inference unit stands on — worth learning BEFORE December.',
 sub: 'Linear transformations of random variables, unbiased estimates, central limit theorem.',
+video: { id: 'YAlJCEDH2uY', title: 'StatQuest — The Central Limit Theorem', why: 'Why normal-based inference is legal on non-normal data.' },
 notes: [
 { h: 'Mean & variance under transformations', body: L`
 <p>Shift and scale a random variable, and its mean/variance respond differently:</p>
@@ -965,13 +992,15 @@ notes: [
 <li>CLT: $\bar{X} \approx N(38, \frac{400}{100})$, sd $= 2$.</li>
 <li>$P(\bar{X} &gt; 42) = P(Z &gt; 2) \approx 0.0228$. No normality of receipts needed — $n = 100$ does the heavy lifting.</li>
 </ol></div>
-<div class="warn"><b>Trap:</b> the CLT is about the SAMPLE MEAN's distribution, not individuals. P(one receipt &gt; 42) is a different (and unanswerable-without-the-distribution) question.</div>` },
+<div class="warn"><b>Trap:</b> the CLT is about the SAMPLE MEAN's distribution, not individuals. P(one receipt &gt; 42) is a different (and unanswerable-without-the-distribution) question.</div>
+<div class="viz" data-viz="normal"></div>` },
 ],
 },
 {
 id: 'g6', title: 'Poisson Distribution', syll: 'AI HL 4.17',
 why: 'The 3.7 unit tests a Poisson MEAN — the distribution itself never gets a lesson.',
 sub: 'Counting rare events: model, formula, properties.',
+video: { id: 'jmqZG6roVqU', title: 'jbstatistics — An introduction to the Poisson distribution', why: 'The conditions and the formula, precisely stated.' },
 notes: [
 { h: 'The model & the formula', body: L`
 <p>$X \sim \text{Po}(m)$ counts events in a fixed window (calls per hour, typos per page, goals per match) under three conditions: events occur <b>singly</b>, <b>independently</b>, and at a <b>constant average rate</b>. Quoting these conditions in context is a standard mark.</p>
@@ -982,7 +1011,8 @@ notes: [
 <li>$P(X = 5) = \frac{e^{-3}3^5}{5!} = \frac{243e^{-3}}{120} \approx 0.101$.</li>
 <li>$P(X \le 2)$: GDC poissoncdf(3, 2) $\approx 0.423$. (Pdf = exactly; cdf = at most — the eternal menu choice.)</li>
 </ol></div>
-<div class="warn"><b>Trap:</b> "P(X &lt; 3)" means $P(X \le 2)$ for a discrete variable. Off-by-one on the cdf boundary is the most common Poisson error in existence.</div>` },
+<div class="warn"><b>Trap:</b> "P(X &lt; 3)" means $P(X \le 2)$ for a discrete variable. Off-by-one on the cdf boundary is the most common Poisson error in existence.</div>
+<div class="viz" data-viz="poisson"></div>` },
 
 { h: 'The fingerprint: mean = variance', body: L`
 <p>Mean equal to variance is the Poisson signature, and questions use it two ways:</p>
@@ -1009,6 +1039,7 @@ notes: [
 id: 'g7', title: 'Second-Order DEs', syll: 'AI HL 5.18',
 why: 'The calendar covers systems — confirm the second-order → coupled conversion gets taught.',
 sub: 'Reducing d²x/dt² equations to coupled first-order systems.',
+video: { id: 'p_di4Zn4wz4', title: '3Blue1Brown — Differential equations, a tourist\'s guide', why: 'Opens with the pendulum: a second-order equation turned into a system.' },
 notes: [
 { h: 'The conversion trick', body: L`
 <p>The syllabus does not want a new solving technique — it wants ONE move: turn a second-order equation into a first-order SYSTEM by naming the velocity.</p>
@@ -1034,13 +1065,15 @@ notes: [
 
 { h: 'SHM — the flagship example', body: L`
 <div class="fbox">$\ddot{x} = -\omega^2 x$ — solution $x = A\cos(\omega t) + B\sin(\omega t)$, period $\frac{2\pi}{\omega}$; equivalently $R\cos(\omega t - \varphi)$</div>
-<p>As a system: $\dot{x} = y$, $\dot{y} = -\omega^2 x$; eigenvalues $\pm i\omega$ (purely imaginary ⇒ closed orbits). Phase-plane trajectories are ELLIPSES: the state $(x, y)$ circulates forever — oscillation with no decay. Add a $-k\dot{x}$ damping term and the real part of the eigenvalues goes negative: the ellipse becomes an inward spiral. This pair of pictures (ellipse vs spiral) is the exam's favourite second-order visual.</p>` },
+<p>As a system: $\dot{x} = y$, $\dot{y} = -\omega^2 x$; eigenvalues $\pm i\omega$ (purely imaginary ⇒ closed orbits). Phase-plane trajectories are ELLIPSES: the state $(x, y)$ circulates forever — oscillation with no decay. Add a $-k\dot{x}$ damping term and the real part of the eigenvalues goes negative: the ellipse becomes an inward spiral. This pair of pictures (ellipse vs spiral) is the exam's favourite second-order visual.</p>
+<div class="viz" data-viz="phase"></div>` },
 ],
 },
 {
 id: 'g8', title: 'Logistic & Further Models', syll: 'AI HL 2.9 · 2.10',
 why: 'HL modelling menu (logistic, log models, piecewise) not visible on the calendar.',
 sub: 'Growth with a ceiling, and the rest of the HL model menu.',
+video: { id: 'gxAaO2rsdIs', title: '3Blue1Brown — Simulating an epidemic', why: 'Watch growth run into a ceiling and level off — the logistic S-curve, live.' },
 notes: [
 { h: 'The logistic function — growth with a ceiling', body: L`
 <div class="fbox">$f(x) = \frac{L}{1 + Ce^{-kx}}$ — S-curve: near-exponential start, then levelling off at the carrying capacity $L$</div>
@@ -1052,7 +1085,8 @@ notes: [
 <li>$f(0) = 50$: $\ \frac{1000}{1 + C} = 50$ → $C = 19$.</li>
 <li>$f(2) = 200$: $\ 1 + 19e^{-2k} = 5$ → $e^{-2k} = \frac{4}{19}$ → $k = \frac{1}{2}\ln\frac{19}{4} \approx 0.779$.</li>
 <li>$f(t) = \frac{1000}{1 + 19e^{-0.779t}}$. Fit parameters in that order every time: ceiling → start → one more point.</li>
-</ol></div>` },
+</ol></div>
+<div class="viz" data-viz="logistic"></div>` },
 
 { h: 'The HL model menu & fingerprints', body: L`
 <p>Model-selection questions give data or a description; you name the family. Diagnose by fingerprint:</p>
@@ -1086,7 +1120,7 @@ const SYLL = [
   { code: '1.6', name: 'Approximation, bounds, percentage error', st: 'y1' },
   { code: '1.7', name: 'Annuities & amortisation (tech)', st: 'y1' },
   { code: '1.8', name: 'Systems of equations & polynomials (tech)', st: 'y1' },
-  { code: '1.9', name: 'Laws of logarithms (AHL)', st: 'y1', note: 'Confirm covered last year' },
+  { code: '1.9', name: 'Laws of logarithms (AHL)', st: 'y1' },
   { code: '1.10', name: 'Rational exponents, simplification (AHL)', st: 'y1' },
   { code: '1.11', name: 'Infinite geometric series (AHL)', st: 'y1' },
   { code: '1.12', name: 'Complex numbers: Cartesian form (AHL)', st: 'sched', when: 'Unit 3.1 · Aug' },
@@ -1101,8 +1135,8 @@ const SYLL = [
   { code: '2.4', name: 'Key features of graphs', st: 'y1' },
   { code: '2.5', name: 'Modelling: linear → sinusoidal', st: 'sched', when: 'Sinusoids in unit 3.1' },
   { code: '2.6', name: 'Modelling process & selection', st: 'y1' },
-  { code: '2.7', name: 'Composite & inverse functions (AHL)', st: 'y1', note: 'Confirm covered last year' },
-  { code: '2.8', name: 'Transformations of graphs (AHL)', st: 'y1', note: 'Confirm covered last year' },
+  { code: '2.7', name: 'Composite & inverse functions (AHL)', st: 'y1' },
+  { code: '2.8', name: 'Transformations of graphs (AHL)', st: 'y1' },
   { code: '2.9', name: 'Further models: logistic, log, piecewise (AHL)', st: 'gap', ref: 'g8' },
   { code: '2.10', name: 'Linearising with logs: log-log & semi-log (AHL)', st: 'sched', when: 'Jan 6 lesson' },
 ]},
@@ -1136,8 +1170,8 @@ const SYLL = [
   { code: '4.9', name: 'Normal distribution', st: 'y1' },
   { code: '4.10', name: "Spearman's rank correlation", st: 'y1' },
   { code: '4.11', name: 'Chi-square & t-test (SL level)', st: 'sched', when: 'Deepened in unit 3.7 · Dec' },
-  { code: '4.12', name: 'Reliability & validity of data (AHL)', st: 'y1', note: 'Confirm covered last year' },
-  { code: '4.13', name: 'Non-linear regression, R² (AHL)', st: 'gap', ref: 'g8', note: 'Partly touched by log-log lesson' },
+  { code: '4.12', name: 'Reliability & validity of data (AHL)', st: 'y1' },
+  { code: '4.13', name: 'Non-linear regression, R² (AHL)', st: 'gap', ref: 'g8' },
   { code: '4.14', name: 'Linear transforms of RVs, unbiased estimators (AHL)', st: 'gap', ref: 'g5' },
   { code: '4.15', name: 'Combining normal variables, CLT (AHL)', st: 'gap', ref: 'g5', note: 'Foundation for unit 3.7!' },
   { code: '4.16', name: 'Confidence intervals (AHL)', st: 'sched', when: 'Unit 3.7 · Dec' },

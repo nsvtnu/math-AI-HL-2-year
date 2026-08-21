@@ -131,6 +131,50 @@ function unitCard(u) {
   return c;
 }
 
+
+// ---------- per-unit video ----------
+function videoCard(v) {
+  const c = el('<div class="vid-card">' +
+    '<div class="vid-meta"><div class="vid-name">' + esc(v.title) + '</div>' +
+    '<div class="vid-why">' + esc(v.why) + '</div></div></div>');
+  const play = el('<button class="vid-play" title="Play here">&#9654;</button>');
+  play.onclick = () => {
+    if (c.querySelector('iframe')) return;
+    const f = document.createElement('iframe');
+    f.className = 'vid-frame';
+    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id);
+    f.allow = 'accelerometer; encrypted-media; picture-in-picture';
+    f.allowFullscreen = true;
+    f.loading = 'lazy';
+    c.appendChild(f);
+  };
+  c.insertBefore(play, c.firstChild);
+  return c;
+}
+
+// ---------- your own notes for a unit ----------
+function myNotes(unitId) {
+  const box = el('<div class="mynotes"><div class="mynotes-head"><h3>My notes</h3>' +
+    '<span class="mynotes-status"></span></div></div>');
+  const status = box.querySelector('.mynotes-status');
+  const ta = document.createElement('textarea');
+  ta.placeholder = 'Anything from class that is not above — your teacher\'s wording, a worked example from the board, a question to ask.';
+  ta.value = S.noteOf(unitId);
+  box.appendChild(ta);
+  let t = null;
+  ta.addEventListener('input', () => {
+    status.textContent = 'saving…';
+    clearTimeout(t);
+    t = setTimeout(() => {
+      S.setNote(unitId, ta.value);
+      status.textContent = 'saved';
+      if (window.Cloud && Cloud.user) Cloud.sync();
+      setTimeout(() => { status.textContent = ''; }, 1600);
+    }, 600);
+  });
+  return box;
+}
+
 function renderUnit(id, tab, focusQ) {
   const u = unitById(id);
   if (!u) return renderHome();
@@ -154,6 +198,7 @@ function renderUnit(id, tab, focusQ) {
 
   if (tab === 'notes') {
     const wrap = el('<div class="note-sec"></div>');
+    if (u.video) wrap.appendChild(videoCard(u.video));
     if (u.notes.length > 3) {
       const toc = el('<div class="note-toc"></div>');
       u.notes.forEach((n, ix) => {
@@ -169,10 +214,12 @@ function renderUnit(id, tab, focusQ) {
     u.notes.forEach((n, ix) => {
       wrap.appendChild(el('<div class="card" id="note-' + id + '-' + ix + '"><h3>' + n.h + '</h3>' + MT.render(n.body) + '</div>'));
     });
+    wrap.appendChild(myNotes(id));
     const go = el('<button class="btn">Practice this unit →</button>');
     go.onclick = () => renderUnit(id, 'practice');
     wrap.appendChild(go);
     view.appendChild(wrap);
+    if (window.VIZ) VIZ.mount(wrap);
   } else {
     Quiz.renderList(qsOf(id), view);
     buildNav(); // counts may change as they answer; rebuild on entry

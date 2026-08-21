@@ -13,6 +13,7 @@ const DEFAULTS = {
   flags: {},        // qid -> 'easy' | 'med' | 'hard' | 'review'
   attempts: [],     // { q, u, ok, first, ts }   (u = unit id)
   over: {},         // syllabus code -> 'done' | 'need'  (personal override)
+  mynotes: {},      // unit id -> your own typed notes
   synced: 0,        // how many attempts the cloud has already stored
 };
 
@@ -76,6 +77,13 @@ const S = {
   },
   overOf(code) { return state.over[code] || null; },
 
+  noteOf(unitId) { return state.mynotes[unitId] || ''; },
+  setNote(unitId, text) {
+    if (text && text.trim()) state.mynotes[unitId] = text;
+    else delete state.mynotes[unitId];
+    save();
+  },
+
   unitStats(unitId, bank) {
     const qs = bank.filter(q => q.unit === unitId);
     const correct = new Set();
@@ -106,7 +114,7 @@ const S = {
   unsyncedAttempts() { return state.attempts.slice(state.synced); },
   markSynced() { state.synced = state.attempts.length; save(); },
   exportData() {
-    return { flags: state.flags, over: state.over, streak: state.streak };
+    return { flags: state.flags, over: state.over, streak: state.streak, mynotes: state.mynotes };
   },
   // Merge the cloud copy with this device, then recompute xp + streak
   // from the combined attempt log so every device agrees.
@@ -139,6 +147,7 @@ const S = {
     // flags / overrides: remote first, local edits win
     state.flags = Object.assign({}, (remoteData && remoteData.flags) || {}, state.flags);
     state.over = Object.assign({}, (remoteData && remoteData.over) || {}, state.over);
+    state.mynotes = Object.assign({}, (remoteData && remoteData.mynotes) || {}, state.mynotes);
     save();
   },
 };
