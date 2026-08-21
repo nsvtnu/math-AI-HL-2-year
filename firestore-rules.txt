@@ -17,10 +17,7 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
 
-    // Public leaderboard row. Anyone signed in can read it; only the
-    // owner can write their own row, and only in a valid shape:
-    // a well-formed username and an XP that matches the solved count.
-    // This stops both name spoofing and casually invented scores.
+    
     match /leaderboard/{uid} {
       allow read: if request.auth != null;
       allow write: if request.auth != null
@@ -51,14 +48,11 @@ service cloud.firestore {
                     && request.resource.data.get('correct', 0) <= resource.data.get('correct', 0) + 1;
     }
 
-    // Class materials published by the owner. Everyone signed in can
-    // read them; only the owner account can write. Replace PASTE_YOUR_UID
-    // with your own uid (the account menu shows it) and re-publish, or
-    // nobody can publish materials at all.
+    
     match /materials/{unitId} {
       allow read: if request.auth != null;
       allow write: if request.auth != null
-                   && request.auth.uid == 'PASTE_YOUR_UID';
+                   && request.auth.uid == 'H6WpiM7f9XR3N4Sp6PaNFfEa4Af1';
     }
 
     // Anything else is closed.
