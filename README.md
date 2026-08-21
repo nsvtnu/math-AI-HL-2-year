@@ -1,8 +1,6 @@
 # Mathkitty
 
-An IB Mathematics AI HL study companion built around the teacher's actual semester calendar, cross-checked against the official syllabus, with a Gap Zone for examinable topics that are not on the plan. Now with a pixel kitten who cheers when you get questions right and giggles when you get them wrong.
-
-Zero dependencies. Zero internet needed. Zero build steps. Plain HTML + CSS + JS — even the math renderer and the mascot are written from scratch.
+An IB Mathematics AI HL study companion; HTML + CSS + JS
 
 ## Run it
 
