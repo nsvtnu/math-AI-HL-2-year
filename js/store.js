@@ -14,6 +14,7 @@ const DEFAULTS = {
   attempts: [],     // { q, u, ok, first, ts }   (u = unit id)
   over: {},         // syllabus code -> 'done' | 'need'  (personal override)
   mynotes: {},      // unit id -> your own typed notes
+  links: {},        // unit id -> [{label, url}] shared handout links
   synced: 0,        // how many attempts the cloud has already stored
 };
 
@@ -77,6 +78,20 @@ const S = {
   },
   overOf(code) { return state.over[code] || null; },
 
+  linksOf(unitId) { return state.links[unitId] || []; },
+  addLink(unitId, label, url) {
+    const arr = state.links[unitId] || (state.links[unitId] = []);
+    arr.push({ label: label, url: url });
+    save();
+  },
+  removeLink(unitId, ix) {
+    const arr = state.links[unitId];
+    if (!arr) return;
+    arr.splice(ix, 1);
+    if (!arr.length) delete state.links[unitId];
+    save();
+  },
+
   noteOf(unitId) { return state.mynotes[unitId] || ''; },
   setNote(unitId, text) {
     if (text && text.trim()) state.mynotes[unitId] = text;
@@ -114,7 +129,7 @@ const S = {
   unsyncedAttempts() { return state.attempts.slice(state.synced); },
   markSynced() { state.synced = state.attempts.length; save(); },
   exportData() {
-    return { flags: state.flags, over: state.over, streak: state.streak, mynotes: state.mynotes };
+    return { flags: state.flags, over: state.over, streak: state.streak, mynotes: state.mynotes, links: state.links };
   },
   // Merge the cloud copy with this device, then recompute xp + streak
   // from the combined attempt log so every device agrees.
@@ -148,6 +163,7 @@ const S = {
     state.flags = Object.assign({}, (remoteData && remoteData.flags) || {}, state.flags);
     state.over = Object.assign({}, (remoteData && remoteData.over) || {}, state.over);
     state.mynotes = Object.assign({}, (remoteData && remoteData.mynotes) || {}, state.mynotes);
+    state.links = Object.assign({}, (remoteData && remoteData.links) || {}, state.links);
     save();
   },
 };

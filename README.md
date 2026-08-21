@@ -22,10 +22,12 @@ then open http://localhost:4175 and install from the browser menu.
 - **Units 3.1–3.7 + January** — full structured notes with worked examples, plus practice questions with hidden solutions
 - **Gap Zone** — lessons for the 8 syllabus areas missing from the calendar
 - **Syllabus map** — every AI HL item vs the calendar, with personal confident/needs-work marks
+- **Interactive diagrams** — 14 of them, drawn in plain SVG: drag the Argand plane, slide the trapezoid strips, watch a phase portrait flip from sink to saddle
+- **A video per unit**, plus space for your own notes and your teacher's handouts (drop a PDF, paste a screenshot, or save a link)
 - **Semester timeline**, **review queue**, **resource hub**, and full-text search (press `/`)
 
 ## Design
 
-Vintage Garden palette: sand, mocha, chocolate, espresso, baby pink, blush, dusty rose, mauve, sage, meadow, olive, moss. Light and dark themes both draw only from these swatches.
+Bright pink study palette: white paper, hot-pink accents, raspberry ink. Green appears in exactly one place — confirming a correct answer. Light and dark themes both included.
 
 Progress (XP, streak, flags, syllabus marks) lives in localStorage — private to the browser, no accounts, no tracking.
