@@ -243,6 +243,38 @@ function notifyAttempt(qid, ok) {
   }).catch(() => {});
 }
 
+// ---------- shared class materials (admin publishes, class reads) ----------
+async function getMaterials(unitId) {
+  if (!configured || !session) return null;
+  try {
+    const doc = await store('/materials/' + unitId);
+    const d = decFields((doc || {}).fields);
+    return Array.isArray(d.items) ? d.items : [];
+  } catch (e) {
+    if (e.status === 404) return [];
+    return null;
+  }
+}
+
+async function setMaterials(unitId, items) {
+  // The Firestore rules are the real gate; this only avoids a pointless
+  // round trip when we already know the user is not the owner.
+  if (!canEditMaterials()) throw new Error('Only the class owner can publish materials');
+  await store('/materials/' + unitId, {
+    method: 'PATCH',
+    body: JSON.stringify({ fields: enc({ items: items, updated: Date.now() }).mapValue.fields }),
+  });
+}
+
+function isAdmin() {
+  return !!(session && cfg.adminUid && session.uid === cfg.adminUid);
+}
+// Before an owner is configured nobody is locked out — the controls stay
+// visible so the first person can set themselves up.
+function canEditMaterials() {
+  return !!session && (!cfg.adminUid || isAdmin());
+}
+
 // ---------- leaderboard & class stats ----------
 async function leaderboard() {
   const rows = await store(':runQuery', {
@@ -284,6 +316,9 @@ async function qstat(qid) {
 window.Cloud = {
   get isConfigured() { return configured; },
   get user() { return session ? session.username : null; },
+  get uid() { return session ? session.uid : null; },
+  get adminConfigured() { return !!cfg.adminUid; },
+  isAdmin, canEditMaterials, getMaterials, setMaterials,
   signUp, logIn, logOut, sync, notifyAttempt, leaderboard, qstat,
   onStatus(cb) { statusCb = cb; },
 };

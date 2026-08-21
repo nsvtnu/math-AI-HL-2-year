@@ -270,6 +270,8 @@ h2.sec { font-size: 21px; margin: 32px 0 10px; }
 .acct-sync { font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
 .acct-sync.ok { color: var(--good); }
 .acct-sync.error { color: var(--bad); }
+.acct-uid { font-size: 10.5px; color: var(--muted); margin: -4px 0 10px; line-height: 1.5; }
+.acct-uid code { display: block; margin-top: 3px; font-size: 10.5px; color: var(--acc2); word-break: break-all; user-select: all; background: var(--card2); border-radius: 5px; padding: 3px 5px; }
 .acct-out { width: 100%; background: var(--card2); border: 1px solid var(--border); color: var(--text); border-radius: 9px; padding: 7px 10px; font-size: 12.5px; cursor: pointer; font-family: inherit; }
 .acct-out:hover { border-color: var(--bad); color: var(--bad); }
 
@@ -369,6 +371,9 @@ h2.sec { font-size: 21px; margin: 32px 0 10px; }
 .mats-link { color: var(--acc2); font-weight: 700; text-decoration: underline; }
 .mats-hint { font-size: 11.5px; opacity: .85; }
 .mats-list { margin-top: 10px; }
+.mats-empty { font-size: 13px; color: var(--muted); padding: 10px 2px; }
+.mats-edit { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.mats-edit .mats-form { margin-top: 9px; }
 .mat-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--border);
            border-radius: 11px; background: var(--card); margin-bottom: 7px; font-size: 13.5px; }
 .mat-ico { flex-shrink: 0; font-size: 9.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;

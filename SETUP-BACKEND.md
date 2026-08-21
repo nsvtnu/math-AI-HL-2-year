@@ -47,6 +47,20 @@ The API key is public by design — it identifies the project, it does not grant
 
 Commit and push in GitHub Desktop. Once Vercel redeploys, a **Sign in / Create account** button appears at the bottom of the sidebar and a **Leaderboard** page appears in the nav.
 
+## 7. Make yourself the class owner
+
+This is what lets you — and only you — publish handout links on unit pages. Everyone else sees them but gets no add controls, and the database rejects their writes even from the browser console.
+
+1. On the live site, sign in and create your account.
+2. Click your name in the top right. While no owner is set, the menu shows **your account id**.
+3. Copy it into two places:
+   - `js/config.js` → `adminUid: 'that-id'`
+   - `firestore-rules.txt` → replace `PASTE_YOUR_UID` with the same id
+4. In Firebase Console → **Firestore Database → Rules**, paste the updated rules and press **Publish**.
+5. Push the `js/config.js` change.
+
+The account id disappears from the menu once step 3 is done. Until then, materials cannot be published at all — the rules deny it — which is why this step is not optional if you want handouts on the site.
+
 ## What your classmates do
 
 Open the site → **Sign in / Create account** → pick a username and password. That is all. Their progress then follows them between phone and laptop, they appear on the leaderboard, and after answering a question they see what percentage of the class got it right.

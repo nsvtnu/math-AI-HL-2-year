@@ -152,120 +152,151 @@ function videoCard(v) {
   return c;
 }
 
-// ---------- class materials: handouts, photos, links ----------
+// ---------- class materials ----------
+// Shared links live in Firestore and are published by the owner only.
+// Files stay in this browser, so they are private to whoever saved them.
 function materials(unitId) {
+  const canEdit = window.Cloud && Cloud.canEditMaterials && Cloud.canEditMaterials();
   const box = el('<div class="mats"><div class="mats-head"><h3>Class materials</h3>' +
-    '<span class="mats-status"></span></div>' +
-    '<div class="mats-drop" tabindex="0">' +
-      '<b>Drop a handout here</b>, paste a screenshot, or <span class="mats-link">choose a file</span><br>' +
-      '<span class="mats-hint">PDFs, photos of the board, worksheets. Stored on this device.</span>' +
-    '</div>' +
-    '<div class="mats-list"></div>' +
-    '<div class="mats-add"></div></div>');
-
-  const drop = box.querySelector('.mats-drop');
+    '<span class="mats-status"></span></div><div class="mats-list"></div></div>');
   const listEl = box.querySelector('.mats-list');
   const status = box.querySelector('.mats-status');
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.multiple = true;
-  input.style.display = 'none';
-  box.appendChild(input);
+  const say = t => { status.textContent = t; if (t) setTimeout(() => { if (status.textContent === t) status.textContent = ''; }, 2400); };
 
-  const say = t => { status.textContent = t; if (t) setTimeout(() => { if (status.textContent === t) status.textContent = ''; }, 2200); };
+  let shared = [];
 
-  async function refresh() {
-    listEl.innerHTML = '';
-    // saved links first (these follow you between devices)
-    S.linksOf(unitId).forEach((lk, ix) => {
-      const row = el('<div class="mat-row"><span class="mat-ico">link</span>' +
-        '<a class="mat-name" href="' + esc(lk.url) + '" target="_blank" rel="noopener">' + esc(lk.label) + '</a>' +
-        '<span class="mat-meta">synced</span></div>');
-      const del = el('<button class="mat-del" title="Remove">remove</button>');
-      del.onclick = () => { S.removeLink(unitId, ix); if (Cloud.user) Cloud.sync(); refresh(); };
+  function sharedRow(m, ix) {
+    const row = el('<div class="mat-row"><span class="mat-ico">link</span>' +
+      '<a class="mat-name" href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.label) + '</a>' +
+      '<span class="mat-meta">shared with the class</span></div>');
+    if (canEdit) {
+      const del = el('<button class="mat-del" title="Remove for everyone">remove</button>');
+      del.onclick = async () => {
+        if (!confirm('Remove "' + m.label + '" for the whole class?')) return;
+        const next = shared.slice(); next.splice(ix, 1);
+        try { await Cloud.setMaterials(unitId, next); shared = next; say('removed'); render(); }
+        catch (e) { say(e.message); }
+      };
       row.appendChild(del);
-      listEl.appendChild(row);
-    });
-    if (!FILES.available) return;
+    }
+    return row;
+  }
+
+  async function localRows() {
+    if (!FILES.available) return [];
     let recs = [];
-    try { recs = await FILES.list(unitId); } catch (e) { return; }
-    recs.forEach(r => {
+    try { recs = await FILES.list(unitId); } catch (e) { return []; }
+    return recs.map(r => {
       const isImg = /^image\//.test(r.type);
       const row = el('<div class="mat-row"><span class="mat-ico">' + (isImg ? 'image' : /pdf/.test(r.type) ? 'pdf' : 'file') + '</span>' +
         '<span class="mat-name">' + esc(r.name) + '</span>' +
-        '<span class="mat-meta">' + FILES.sizeText(r.size) + ' · this device</span></div>');
+        '<span class="mat-meta">' + FILES.sizeText(r.size) + ' · only on this device</span></div>');
       const open = el('<button class="mat-open">open</button>');
       open.onclick = () => {
         const url = URL.createObjectURL(r.blob);
         if (isImg) {
-          let prev = row.nextElementSibling;
-          if (prev && prev.classList.contains('mat-prev')) { prev.remove(); URL.revokeObjectURL(url); return; }
-          const p = el('<div class="mat-prev"></div>');
+          const nxt = row.nextElementSibling;
+          if (nxt && nxt.classList.contains('mat-prev')) { nxt.remove(); URL.revokeObjectURL(url); return; }
+          const pv = el('<div class="mat-prev"></div>');
           const img = document.createElement('img');
           img.src = url; img.alt = r.name;
-          p.appendChild(img);
-          row.after(p);
+          pv.appendChild(img);
+          row.after(pv);
         } else {
           window.open(url, '_blank', 'noopener');
           setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
       };
-      const del = el('<button class="mat-del" title="Delete from this device">remove</button>');
-      del.onclick = async () => {
-        if (!confirm('Delete "' + r.name + '" from this device?')) return;
-        await FILES.remove(r.id); refresh();
-      };
-      row.appendChild(open); row.appendChild(del);
-      listEl.appendChild(row);
+      row.appendChild(open);
+      if (canEdit) {
+        const del = el('<button class="mat-del" title="Delete from this device">remove</button>');
+        del.onclick = async () => {
+          if (!confirm('Delete "' + r.name + '" from this device?')) return;
+          await FILES.remove(r.id); render();
+        };
+        row.appendChild(del);
+      }
+      return row;
     });
   }
 
-  async function take(files) {
-    if (!FILES.available) { say('this browser cannot store files'); return; }
-    let n = 0;
-    for (const f of files) {
-      if (f.size > 40 * 1024 * 1024) { say(f.name + ' is over 40 MB — too big'); continue; }
-      try { await FILES.add(unitId, f); n++; } catch (e) { say('could not save ' + f.name); }
+  async function render() {
+    listEl.innerHTML = '';
+    shared.forEach((m, ix) => listEl.appendChild(sharedRow(m, ix)));
+    (await localRows()).forEach(r => listEl.appendChild(r));
+    if (!listEl.children.length) {
+      listEl.appendChild(el('<div class="mats-empty">' +
+        (canEdit ? 'Nothing here yet. Add a link to a handout, or drop a file below.'
+                 : 'No materials for this unit yet.') + '</div>'));
     }
-    if (n) say(n + (n === 1 ? ' file saved' : ' files saved'));
-    refresh();
   }
 
-  drop.onclick = () => input.click();
-  input.onchange = () => { take([...input.files]); input.value = ''; };
-  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
-  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
-  drop.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) take([...e.dataTransfer.files]); });
-  drop.addEventListener('paste', e => {
-    const items = [...(e.clipboardData ? e.clipboardData.items : [])];
-    const imgs = items.filter(i => i.kind === 'file').map(i => i.getAsFile()).filter(Boolean);
-    if (imgs.length) { e.preventDefault(); take(imgs); }
-  });
+  // ----- owner-only controls -----
+  function editor() {
+    const wrap = el('<div class="mats-edit"></div>');
+    const drop = el('<div class="mats-drop" tabindex="0"><b>Drop a file here</b>, paste a screenshot, or ' +
+      '<span class="mats-link">choose one</span><br>' +
+      '<span class="mats-hint">Kept on this device only — to share with the class, add a link instead.</span></div>');
+    const input = document.createElement('input');
+    input.type = 'file'; input.multiple = true; input.style.display = 'none';
 
-  // add a link (Drive, Classroom, anything) — these sync with your account
-  const addWrap = box.querySelector('.mats-add');
-  const openAdd = el('<button class="btn gray small">Add a link instead</button>');
-  openAdd.onclick = () => {
-    openAdd.remove();
+    async function take(files) {
+      if (!FILES.available) { say('this browser cannot store files'); return; }
+      let n = 0;
+      for (const f of files) {
+        if (f.size > 40 * 1024 * 1024) { say(f.name + ' is over 40 MB'); continue; }
+        try { await FILES.add(unitId, f); n++; } catch (e) { say('could not save ' + f.name); }
+      }
+      if (n) say(n + (n === 1 ? ' file saved' : ' files saved'));
+      render();
+    }
+    drop.onclick = () => input.click();
+    input.onchange = () => { take([...input.files]); input.value = ''; };
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) take([...e.dataTransfer.files]); });
+    drop.addEventListener('paste', e => {
+      const imgs = [...(e.clipboardData ? e.clipboardData.items : [])]
+        .filter(i => i.kind === 'file').map(i => i.getAsFile()).filter(Boolean);
+      if (imgs.length) { e.preventDefault(); take(imgs); }
+    });
+
     const form = el('<div class="mats-form">' +
       '<input class="mat-lab" placeholder="what is it? e.g. Worksheet 3.2" maxlength="60">' +
       '<input class="mat-url" placeholder="https://…"></div>');
-    const save = el('<button class="btn small">Save</button>');
-    save.onclick = () => {
+    const save = el('<button class="btn small">Share with class</button>');
+    save.onclick = async () => {
       const lab = form.querySelector('.mat-lab').value.trim();
       const url = form.querySelector('.mat-url').value.trim();
       if (!lab || !/^https?:\/\//i.test(url)) { say('need a name and a link starting with http'); return; }
-      S.addLink(unitId, lab, url);
-      if (Cloud.user) Cloud.sync();
-      form.remove(); addWrap.appendChild(openAdd);
-      say('link saved'); refresh();
+      if (!Cloud.user) { say('sign in first'); return; }
+      const next = shared.concat([{ label: lab, url: url }]);
+      save.disabled = true;
+      try {
+        await Cloud.setMaterials(unitId, next);
+        shared = next;
+        form.querySelector('.mat-lab').value = '';
+        form.querySelector('.mat-url').value = '';
+        say('shared with the class');
+        render();
+      } catch (e) { say(e.message); }
+      save.disabled = false;
     };
     form.appendChild(save);
-    addWrap.appendChild(form);
-  };
-  addWrap.appendChild(openAdd);
+    wrap.appendChild(drop);
+    wrap.appendChild(input);
+    wrap.appendChild(form);
+    return wrap;
+  }
 
-  refresh();
+  render();
+  if (canEdit) box.appendChild(editor());
+
+  if (window.Cloud && Cloud.user) {
+    Cloud.getMaterials(unitId).then(items => {
+      if (items) { shared = items; render(); }
+    }).catch(() => {});
+  }
   return box;
 }
 
@@ -506,7 +537,11 @@ function renderAccount() {
     '<span class="acct-dot ' + syncState + '"></span></button>');
   const menu = el('<div class="acct-menu" hidden>' +
     '<div class="acct-menu-name">' + esc(Cloud.user) + '</div>' +
-    '<div class="acct-sync ' + syncState + '">' + label + '</div></div>');
+    '<div class="acct-sync ' + syncState + '">' + label + '</div>' +
+    (Cloud.adminConfigured ? '' :
+      '<div class="acct-uid">your account id — paste into js/config.js as adminUid:' +
+      '<code>' + esc(Cloud.uid) + '</code></div>') +
+    '</div>');
   const out = el('<button class="acct-out">Sign out</button>');
   out.onclick = () => Cloud.logOut().then(() => { renderAccount(); buildNav(); route(); });
   menu.appendChild(out);

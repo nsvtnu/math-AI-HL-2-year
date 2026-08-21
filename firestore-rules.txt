@@ -51,6 +51,16 @@ service cloud.firestore {
                     && request.resource.data.get('correct', 0) <= resource.data.get('correct', 0) + 1;
     }
 
+    // Class materials published by the owner. Everyone signed in can
+    // read them; only the owner account can write. Replace PASTE_YOUR_UID
+    // with your own uid (the account menu shows it) and re-publish, or
+    // nobody can publish materials at all.
+    match /materials/{unitId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.auth.uid == 'PASTE_YOUR_UID';
+    }
+
     // Anything else is closed.
     match /{document=**} {
       allow read, write: if false;
