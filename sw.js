@@ -1,6 +1,9 @@
-// Orbit service worker — precache everything, serve cache-first.
-// The whole app is local files, so after one visit it works with zero network.
-const CACHE = 'mathkitty-v14';
+// Mathkitty service worker.
+// Stale-while-revalidate: pages open instantly from the cache and work
+// with no internet, while a fresh copy is fetched in the background for
+// next time. That means a bad cached build repairs itself on the next
+// load instead of sticking around.
+const CACHE = 'mathkitty-v15';
 const FILES = [
   './',
   './index.html',
@@ -22,7 +25,11 @@ const FILES = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => Promise.all(FILES.map(f => c.add(f).catch(() => {}))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -33,14 +40,33 @@ self.addEventListener('activate', e => {
   );
 });
 
+// Let the page ask for an immediate takeover.
+self.addEventListener('message', e => { if (e.data === 'skip-waiting') self.skipWaiting(); });
+
 self.addEventListener('fetch', e => {
-  if (!e.request.url.startsWith(self.location.origin)) return;   // cloud calls go straight to the network
-  e.respondWith(
-    caches.match(e.request, { ignoreSearch: true }).then(hit =>
-      hit ||
-      fetch(e.request).catch(() =>
-        e.request.mode === 'navigate' ? caches.match('./index.html') : Response.error()
-      )
-    )
-  );
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  if (!req.url.startsWith(self.location.origin)) return;   // cloud calls go straight out
+
+  // Escape hatch: ...?fresh=1 always goes to the network and refills the cache.
+  const fresh = new URL(req.url).searchParams.get('fresh') === '1';
+
+  e.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const hit = fresh ? null : await cache.match(req, { ignoreSearch: true });
+
+    const update = fetch(req).then(res => {
+      if (res && res.ok) cache.put(req, res.clone()).catch(() => {});
+      return res;
+    }).catch(() => null);
+
+    if (hit) { e.waitUntil(update); return hit; }           // fast, then refresh for next time
+    const net = await update;
+    if (net) return net;
+    if (req.mode === 'navigate') {
+      const shell = await cache.match('./index.html');
+      if (shell) return shell;
+    }
+    return Response.error();
+  })());
 });

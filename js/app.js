@@ -765,7 +765,26 @@ window.addEventListener('hashchange', route);
 
 // ---------- PWA ----------
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  navigator.serviceWorker.register('sw.js').catch(() => { /* file:// or blocked — app still works */ });
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    // Take a waiting update immediately, then reload once so a stale
+    // (or broken) cached build never sticks around.
+    if (reg.waiting) reg.waiting.postMessage('skip-waiting');
+    reg.addEventListener('updatefound', () => {
+      const sw = reg.installing;
+      if (!sw) return;
+      sw.addEventListener('statechange', () => {
+        if (sw.state === 'installed' && navigator.serviceWorker.controller) sw.postMessage('skip-waiting');
+      });
+    });
+    setInterval(() => reg.update().catch(() => {}), 60 * 60 * 1000);
+  }).catch(() => { /* file:// or blocked — app still works */ });
+
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
 }
 
 window.App = { refreshChips };
