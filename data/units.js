@@ -73,7 +73,11 @@ const UNITS = [
 id: 'u31', code: '3.1', title: 'Complex Numbers & Sinusoids',
 sub: 'Argand geometry, polar form, and why adding sine waves is secretly complex-number addition.',
 syll: 'AI HL 1.12, 1.13 · 2.5 · 3.8',
+<<<<<<< HEAD
 video: { id: 'T647CGsuOVU', title: Organic Chemistry Tutor – Complex Numbers Playlist',: '' },
+=======
+video: { link: 'https://www.youtube.com/watch?v=MzCS_8Rzja8&list=PLxcp7t9hUM7A4kb2MbfUcH9qRPq7Qqd5I', title: 'Organic Chemistry Tutor – Complex Numbers Playlist', : '' },
+>>>>>>> de04554b2d0307997da29d15aec16ea8aab8e703
 notes: [
 { h: 'Sinusoidal models — the anatomy', body: L`
 <p>Anything that repeats on a fixed cycle — tides, daylight hours, a Ferris wheel seat, alternating current — gets modelled by a sinusoid. The general form has four dials, and you should know exactly what each one does:</p>

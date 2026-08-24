@@ -12,5 +12,5 @@ const CLOUD_CONFIG = {
   // them but gets no add controls, and the Firestore rules reject their
   // writes even from the console. Fill in after your first sign-in:
   // the account menu shows your id until this is set.
-  adminUid: '',
+  adminUid: 'H6WpiM7f9XR3N4Sp6PaNFfEa4Af1',
 };
