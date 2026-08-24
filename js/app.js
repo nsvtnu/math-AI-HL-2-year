@@ -9,6 +9,23 @@ const crumb = document.getElementById('crumb');
 
 S.applyTheme();
 
+// If a data file fails to parse, every page would otherwise render blank.
+// Say what broke instead.
+const DATA_OK = (() => {
+  try { return [UNITS, GAPS, SYLL, BANK, CAL, ASSESS, RESOURCES].every(x => x !== undefined); }
+  catch (e) { return false; }
+})();
+if (!DATA_OK) {
+  view.innerHTML = '<h1 class="page-title">A data file did not load</h1>' +
+    '<div class="card"><p>The lessons and questions live in <code>data/units.js</code> and ' +
+    '<code>data/bank.js</code>. One of them has a typo, so the whole file was rejected.</p>' +
+    '<p>Usual causes: a missing quote, comma or closing brace — or leftover merge markers ' +
+    'like <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> ' +
+    'from a failed sync.</p><p>Open the browser console (right-click &rarr; Inspect &rarr; Console) ' +
+    'and it names the exact line.</p></div>';
+  return;
+}
+
 // ---------- helpers ----------
 function esc(v) {
   return String(v == null ? '' : v)
@@ -133,22 +150,50 @@ function unitCard(u) {
 
 
 // ---------- per-unit video ----------
+// Accepts whatever you paste: a full watch link, a youtu.be link, a
+// playlist link, or a bare 11-character id.
+function ytEmbed(raw) {
+  raw = String(raw || '').trim();
+  if (!raw) return null;
+  if (/^[\w-]{11}$/.test(raw)) return 'https://www.youtube-nocookie.com/embed/' + raw;
+  let vid = '', list = '';
+  let m = raw.match(/[?&]v=([\w-]{11})/) || raw.match(/youtu\.be\/([\w-]{11})/) || raw.match(/\/embed\/([\w-]{11})/);
+  if (m) vid = m[1];
+  m = raw.match(/[?&]list=([\w-]+)/);
+  if (m) list = m[1];
+  if (vid) return 'https://www.youtube-nocookie.com/embed/' + vid + (list ? '?list=' + list : '');
+  if (list) return 'https://www.youtube-nocookie.com/embed/videoseries?list=' + list;
+  return null;
+}
+function ytWatch(raw) {
+  raw = String(raw || '').trim();
+  if (/^[\w-]{11}$/.test(raw)) return 'https://www.youtube.com/watch?v=' + raw;
+  return /^https?:\/\//i.test(raw) ? raw : null;
+}
+
 function videoCard(v) {
+  const raw = v.url || v.id || v.link || '';
+  const embed = ytEmbed(raw), watch = ytWatch(raw);
   const c = el('<div class="vid-card">' +
-    '<div class="vid-meta"><div class="vid-name">' + esc(v.title) + '</div>' +
-    '<div class="vid-why">' + esc(v.why) + '</div></div></div>');
+    '<div class="vid-meta"><div class="vid-name">' + esc(v.title || 'Video for this unit') + '</div>' +
+    '<div class="vid-why">' + esc(v.why || '') + '</div></div></div>');
   const play = el('<button class="vid-play" title="Play here">&#9654;</button>');
   play.onclick = () => {
     if (c.querySelector('iframe')) return;
+    if (!embed) { if (watch) window.open(watch, '_blank', 'noopener'); return; }
     const f = document.createElement('iframe');
     f.className = 'vid-frame';
-    f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.id);
+    f.src = embed;
     f.allow = 'accelerometer; encrypted-media; picture-in-picture';
     f.allowFullscreen = true;
     f.loading = 'lazy';
     c.appendChild(f);
   };
   c.insertBefore(play, c.firstChild);
+  if (watch) {
+    const out = el('<a class="vid-out" href="' + esc(watch) + '" target="_blank" rel="noopener">open on YouTube</a>');
+    c.querySelector('.vid-meta').appendChild(out);
+  }
   return c;
 }
 

@@ -357,6 +357,8 @@ h2.sec { font-size: 21px; margin: 32px 0 10px; }
 .vid-meta { flex: 1; min-width: 0; }
 .vid-name { font-weight: 700; font-size: 14.5px; }
 .vid-why { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.vid-out { display: inline-block; margin-top: 5px; font-size: 11.5px; color: var(--acc2); text-decoration: none; border-bottom: 1px solid var(--border); }
+.vid-out:hover { border-color: var(--acc); }
 .vid-frame { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 10px; margin-top: 10px; display: block; }
 
 /* ---------- class materials ---------- */
